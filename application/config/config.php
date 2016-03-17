@@ -20,7 +20,7 @@ define('COOKIE_DOMAIN', '.localhost');
 
 define('DB_TYPE', 'mysql');
 define('DB_HOST', 'localhost');
-define('DB_NAME', 'jeu');
+define('DB_NAME', 'PHP-AL-JL');
 define('DB_USER', 'root');
 define('DB_PASS', 'root');
 
