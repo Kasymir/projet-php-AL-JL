@@ -1,7 +1,8 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: jonathanleperu
- * Date: 17/03/2016
- * Time: 16:50
- */
+
+class PanierSQL extends Query
+{
+
+}
+
+?>
