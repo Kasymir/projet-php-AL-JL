@@ -3,7 +3,7 @@ error_reporting(E_ALL);
 ini_set("display_errors", 1);
 
 
-define('URL', 'http://localhost/TP_PHP/TP4_PHP/');
+define('URL', 'http://localhost/projet-php-AL-JL/');
 
 
 define('LIBS_PATH', 'application/libs/');
@@ -23,5 +23,7 @@ define('DB_HOST', 'localhost');
 define('DB_NAME', 'PHP-AL-JL');
 define('DB_USER', 'root');
 define('DB_PASS', 'root');
+
+include('feedback_available.php');
 
 

@@ -11,45 +11,39 @@
                 <!-- CHOOSE THE SEXE -->
                 <div class="form-group  col-md-12">
                     <label class="radio-inline">
-                        <input type="radio" name="sexe"
-                               value="1" <?= (isset($this->post['sexe'])) ? (($this->post['sexe'] == 1) ? "checked" : "") : "checked" ?>>
-                        Homme
+                        <input type="radio" name="civilite"
+                               value="1" <?= (isset($this->post['civilite'])) ? (($this->post['civilite'] == 1) ? "checked" : "") : "checked" ?>>
+                        M.
                     </label>
                     <label class="radio-inline">
                         <input type="radio" name="sexe"
-                               value="2" <?= (isset($this->post['sexe'])) ? (($this->post['sexe'] == 2) ? "checked" : "") : "" ?>>
-                        Femme
+                               value="2" <?= (isset($this->post['civilite'])) ? (($this->post['civilite'] == 2) ? "checked" : "") : "" ?>>
+                        Mme.
                     </label>
                 </div>
 
-                <!-- CHOOSE THE PSEUDO -->
+                <!-- CHOOSE THE NAME -->
                 <div class="form-group">
                     <div class="col-sm-12">
-                        <input type="text" class="form-control" name="pseudo"
-                               placeholder="Pseudo" <?= (isset($this->post['sexe'])) ? "value='" . $this->post['pseudo'] . "'" : "" ?>>
+                        <input type="text" class="form-control" name="nom"
+                               placeholder="Nom" <?= (isset($this->post['nom'])) ? "value='" . $this->post['nom'] . "'" : "" ?>>
                     </div>
                 </div>
 
-                <!-- CHOOSE THE AGE -->
+                <!-- CHOOSE THE PRENOM -->
                 <div class="form-group">
-
                     <div class="col-sm-12">
-                        <input type="number" class="form-control" name="age" placeholder="Age" max="100"
-                               min="10" <?= (isset($this->post['sexe'])) ? "value='" . $this->post['age'] . "'" : "" ?>>
+                        <input type="text" class="form-control" name="prenom"
+                               placeholder="Prénom" <?= (isset($this->post['prenom'])) ? "value='" . $this->post['prenom'] . "'" : "" ?>>
                     </div>
                 </div>
 
-                <!-- CHOOSE THE RACE -->
+                <!-- CHOOSE THE EMAIL -->
                 <div class="form-group">
-                    <select class="form-control" name="race">
-                        <?php
-                        foreach ($this->race as $r):
-                            ?>
-                            <option value="<?=$r->id?>"><?=$r->nom?></option>
-                            <?php
-                        endforeach;
-                        ?>
-                    </select>
+                    <div class="col-sm-12">
+                        <input type="email" class="form-control" name="email"
+                               placeholder="Email" <?= (isset($this->post['email'])) ? "value='" . $this->post['email'] . "'" : "" ?>>
+                    </div>
                 </div>
 
                 <!-- CHOOSE THE PASSWORD -->
@@ -66,6 +60,29 @@
                                placeholder="Vérification mot de passe">
                     </div>
                 </div>
+
+                <!-- CHOOSE THE ADRESSE -->
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        <input type="text" class="form-control" name="adresse"
+                               placeholder="Adresse" <?= (isset($this->post['adresse'])) ? "value='" . $this->post['adresse'] . "'" : "" ?>>
+                    </div>
+                </div>
+                <!-- CHOOSE THE CODE POSTAL -->
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        <input type="text" class="form-control" name="code_postal"
+                               placeholder="Code postal" <?= (isset($this->post['code_postal'])) ? "value='" . $this->post['code_postal'] . "'" : "" ?>>
+                    </div>
+                </div>
+                <!-- CHOOSE THE CIUDAD -->
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        <input type="text" class="form-control" name="ville"
+                               placeholder="Ville" <?= (isset($this->post['ville'])) ? "value='" . $this->post['ville'] . "'" : "" ?>>
+                    </div>
+                </div>
+
 
                 <div class="form-group">
                     <div class="col-sm-12">

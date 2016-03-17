@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  localhost
--- Généré le :  Jeu 17 Mars 2016 à 20:20
+-- Généré le :  Jeu 17 Mars 2016 à 22:58
 -- Version du serveur :  5.7.10
 -- Version de PHP :  5.5.30
 
@@ -142,12 +142,22 @@ CREATE TABLE `transport` (
 CREATE TABLE `user` (
   `id` int(11) NOT NULL,
   `civilite` tinyint(1) NOT NULL,
-  `nom` int(11) NOT NULL,
-  `prenom` int(11) NOT NULL,
-  `mdp` varchar(50) NOT NULL,
-  `adresse` int(11) NOT NULL,
+  `nom` varchar(50) NOT NULL,
+  `prenom` varchar(50) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `mdp` varchar(60) NOT NULL,
+  `adresse` varchar(150) NOT NULL,
+  `code_postal` int(5) NOT NULL,
+  `ville` varchar(50) NOT NULL,
   `admin` tinyint(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Contenu de la table `user`
+--
+
+INSERT INTO `user` (`id`, `civilite`, `nom`, `prenom`, `email`, `mdp`, `adresse`, `code_postal`, `ville`, `admin`) VALUES
+(1, 1, 'le-peru', 'jonathan', 'johnlep@mail.com', '$2y$10$YAzzXqAKQCPkLROETNI8G.S3EjsSvImue5RC.2s6x9k1KfErUuBuS', 'rue de jo', 54354, 'AMOI', 1);
 
 --
 -- Index pour les tables exportées
@@ -190,6 +200,12 @@ ALTER TABLE `transport`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Index pour la table `user`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT pour les tables exportées
 --
 
@@ -223,6 +239,11 @@ ALTER TABLE `produits`
 --
 ALTER TABLE `transport`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT pour la table `user`
+--
+ALTER TABLE `user`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
