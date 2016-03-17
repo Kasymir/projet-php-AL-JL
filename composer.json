@@ -1,0 +1,17 @@
+{
+    "name": "parcours/parcours",
+    "description": "TP Parcours",
+    "minimum-stability": "dev",
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "author's name",
+            "email": "email@example.com"
+        }
+    ],
+    "require": {
+        "michelf/php-markdown": "1.4.1",
+        "ircmaxell/password-compat": "1.0.3",
+        "raveren/kint": "dev-master"
+    }
+}
