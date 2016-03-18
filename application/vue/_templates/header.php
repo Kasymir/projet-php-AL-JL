@@ -15,6 +15,9 @@
     
 
     <!-- FONT AWESOME -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+
     <link href="<?=URL?>public/css/style.css" rel="stylesheet">
 
 </head>
@@ -33,7 +36,28 @@
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 <li <?= ($this->checkForActiveControllerAndAction($filename, "index/index")) ? 'class="active"' : ""; ?>>
-                    <a href="<?php echo URL; ?>index">Accueil</a>
+                    <a href="<?php echo URL; ?>index"><i class="fa fa-home"></i></a>
+                </li>
+                <li <?= ($this->checkForActiveControllerAndAction($filename, "film/index")) ? 'class="active"' : ""; ?>>
+                    <a href="<?php echo URL; ?>index">FILM</a>
+                </li>
+                <li <?= ($this->checkForActiveControllerAndAction($filename, "serie/index")) ? 'class="active"' : ""; ?>>
+                    <a href="<?php echo URL; ?>index">SERIE</a>
+                </li>
+                <li <?= ($this->checkForActiveControllerAndAction($filename, "musique/index")) ? 'class="active"' : ""; ?>>
+                    <a href="<?php echo URL; ?>index">MUSIQUE</a>
+                </li>
+                <li <?= ($this->checkForActiveControllerAndAction($filename, "bd/index")) ? 'class="active"' : ""; ?>>
+                    <a href="<?php echo URL; ?>index">BDs</a>
+                </li>
+                <li <?= ($this->checkForActiveControllerAndAction($filename, "jeux/index")) ? 'class="active"' : ""; ?>>
+                    <a href="<?php echo URL; ?>index">JEUX</a>
+                </li>
+                <li>
+                    <form action="" class="navbar-form navbar-right">
+                        <input class="form-control" placeholder="Rechercher">
+                        <button type="submit" class="btn btn-default" name="rechercher"><i class="fa fa-search"></i></button>
+                    </form>
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
@@ -70,9 +94,9 @@
                     </li>
                 <?php } else { ?>
                     <li <?= ($this->checkForActiveControllerAndAction($filename, "login/index")) ? 'class="active"' : ""; ?>>
-                        <a href="<?php echo URL . 'login'; ?>">Login</a></li>
+                        <a href="<?php echo URL . 'login'; ?>"><i class="fa fa-sign-in"></i></a></li>
                     <li <?= ($this->checkForActiveControllerAndAction($filename, "login/inscription")) ? 'class="active"' : ""; ?>>
-                        <a href="<?php echo URL . 'login/register'; ?>">Inscription</a></li>
+                        <a href="<?php echo URL . 'login/register'; ?>"><i class="fa fa-user-plus"></i></a></li>
                 <?php } ?>
             </ul>
         </div>
