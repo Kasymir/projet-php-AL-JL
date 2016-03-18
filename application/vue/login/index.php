@@ -9,8 +9,8 @@
                 <div class="form-group">
 
                     <div class="col-sm-12">
-                        <input type="text" class="form-control" id="pseudo" name="pseudo"
-                               placeholder="Pseudo">
+                        <input type="email" class="form-control" name="email"
+                               placeholder="Email">
                     </div>
                 </div>
                 <div class="form-group">

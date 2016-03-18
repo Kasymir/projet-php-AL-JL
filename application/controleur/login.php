@@ -15,24 +15,24 @@ class Login extends Controller
 
         if (isset($_POST['login'])) {
             // load model
-            $this->loadModel('JoueurSQL');
-            $model = new JoueurSQL();
+            $this->loadModel('UserSQL');
+            $model = new UserSQL();
 
             // load Variable
-            $pseudo = $_POST['pseudo'];
+            $email = $_POST['email'];
             $password = $_POST['password'];
 
             //check if pseudo exist
-            if ($model->findWithCondition("pseudo = :p", array(':p' => $pseudo))->rowCount() == 1) {
+            if ($model->findWithCondition("email = :e", array(':e' => $email))->rowCount() == 1) {
                 //check if correct password
-                if (password_verify($password, $model->findWithCondition("pseudo = :p", array(':p' => $pseudo))->execute()[0]->mot_de_passe)) {
+                if (password_verify($password, $model->findWithCondition("email = :e", array(':e' => $email))->execute()[0]->mdp)) {
                     //SET SESSION
-                    SESSION::set('user_name', $pseudo);
-                    SESSION::set('user_id', $model->findWithCondition("pseudo = :p", array(':p' => $pseudo))->execute()[0]->id);
+                    SESSION::set('user_name', $model->findWithCondition("email = :e", array(':e' => $email))->execute()[0]->prenom);
+                    SESSION::set('user_id', $model->findWithCondition("email = :e", array(':e' => $email))->execute()[0]->id);
                     SESSION::set('feedback_positive', USER_LOGIN);
 
                     // set session admin if its me
-                    if ($model->findWithCondition("pseudo = :p", array(':p' => $pseudo))->execute()[0]->admin > 0)
+                    if ($model->findWithCondition("email = :e", array(':e' => $email))->execute()[0]->admin > 0)
                         SESSION::set('user_admin', 1);
                     //redirection
                     header('Location: ' . URL . 'index/index');
@@ -41,7 +41,7 @@ class Login extends Controller
                     $this->view->render('login/index');
                 }
             } else {
-                SESSION::set('feedback_negative', USER_LOGIN_FAILED_PSEUDO);
+                SESSION::set('feedback_negative', USER_LOGIN_FAILED_EMAIL);
                 $this->view->render('login/index');
             }
 

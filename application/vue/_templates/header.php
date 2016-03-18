@@ -8,16 +8,13 @@
     <meta name="author" content="">
 
     <title>PETITE GAME ?</title>
-
-    <!-- Latest compiled and minified CSS -->
+    
+    <!-- BOOTSTRAP -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-
-    <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+    
 
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-
+    <!-- FONT AWESOME -->
     <link href="<?=URL?>public/css/style.css" rel="stylesheet">
 
 </head>
@@ -38,12 +35,6 @@
                 <li <?= ($this->checkForActiveControllerAndAction($filename, "index/index")) ? 'class="active"' : ""; ?>>
                     <a href="<?php echo URL; ?>index">Accueil</a>
                 </li>
-                <li <?= ($this->checkForActiveControllerAndAction($filename, "pouvoir/index")) ? 'class="active"' : ""; ?>>
-                    <a href="<?php echo URL; ?>pouvoir/index">Pouvoir</a>
-                </li>
-                <li <?= ($this->checkForActiveControllerAndAction($filename, "race/index")) ? 'class="active"' : ""; ?>>
-                    <a href="<?php echo URL; ?>race/index">Race</a>
-                </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <?php if (Session::get('user_name') == true) { ?>
@@ -58,10 +49,16 @@
                             if ((SESSION::get('user_admin')) == 1) :
                                 ?>
                                 <li>
-                                    <a href="<?php echo URL; ?>pouvoir/gestionPouvoir">Gestion pouvoir</a>
+                                    <a href="<?php echo URL; ?>">Gestion clients</a>
                                 </li>
                                 <li>
-                                    <a href="<?php echo URL; ?>race/gestionRace">Gestion race</a>
+                                    <a href="<?php echo URL; ?>">Gestion commandes</a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo URL; ?>">Gestion commantaires</a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo URL; ?>">Gestion produits</a>
                                 </li>
                                 <?php
                             endif;

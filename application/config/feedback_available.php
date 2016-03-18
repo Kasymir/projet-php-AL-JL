@@ -13,7 +13,7 @@
 
 define('USER_LOGIN', "Vous êtes maintenant connecté");
 define('USER_LOGIN_FAILED_PASSWORD', "Couple pseudo, mot de passe invalide.");
-define('USER_LOGIN_FAILED_PSEUDO', "Ce pseudo est inconnu, veuillez vous inscrire.");
+define('USER_LOGIN_FAILED_EMAIL', "Cette email est inconnu, veuillez vous inscrire.");
 define('USER_CREATED', "Vous avez créé votre compte, vous pouvez dors et déjà vous connecter.");
 define('USER_UPDATE', "Modification effectués");
 define('REGISTER_FAILED_PASSWORD','Les mots de passes ne correspondent pas');
