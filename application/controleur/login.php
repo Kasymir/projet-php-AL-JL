@@ -121,48 +121,6 @@ class Login extends Controller
         }
     }
 
-    function monProfil()
-    {
-
-        $this->loadModel("UserSQL");
-        $model_user = new UserSQL();
-        $this->loadModel("user_adresseSQL");
-        $model_user_adresse = new user_adresseSQL();
-
-        $this->view->infoUser = $model_user->findById(SESSION::get('user_id'));
-        $this->view->infoAdresse = $model_user_adresse ->findWithCondition('id_user = :idu' , array(':idu' => SESSION::get('user_id')))->execute();
-
-        $this->view->render('login/profil');
-
-    }
-
-    function update()
-    {
-        if (isset($_POST['update'])) {
-
-            $this->loadModel('Joueur');
-
-            $pseudo = $_POST['pseudo'];
-            $mdp = ($_POST['password'] != "") ? password_hash($_POST['password'], PASSWORD_BCRYPT) : $this->view->infoJoueur->mot_de_passe;
-            $age = $_POST['age'];
-            $sexe = $_POST['sexe'];
-            $race = $_POST['race'];
-            $vie = $this->view->infoJoueur->vie;
-            $xp = $this->view->infoJoueur->xp;
-            $valeur_pouvoir = $this->view->infoJoueur->valeur_pouvoir;
-            $admin = $this->view->infoJoueur->admin;
-
-            $table = new Joueur($pseudo, $mdp, $age, $sexe, $race, $vie, $xp, $valeur_pouvoir, $admin);
-            $table->setId(SESSION::get('user_id'));
-            $table->save();
-
-            SESSION::set('feedback_positive', USER_UPDATE);
-
-            header('Location: ' . URL . 'login/monProfil');
-
-        }
-    }
-
     function logout()
     {
         session_destroy();
