@@ -7,17 +7,17 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>PETITE GAME ?</title>
+    <title>Boutique</title>
     
     <!-- BOOTSTRAP -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+<!--    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">-->
+
+    <link href="<?=URL?>public/css/bootstrap.css" rel="stylesheet">
     
 
     <!-- FONT AWESOME -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-
-
+    
     <link href="<?=URL?>public/css/style.css" rel="stylesheet">
 
 </head>
@@ -62,12 +62,12 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <?php if (Session::get('user_name') == true) { ?>
-                    <li><p class="navbar-text">Bienvenue <?php echo Session::get('user_name'); ?></p></li>
+                    <li><p class="navbar-text hidden-sm">Bienvenue <?php echo Session::get('user_name'); ?></p></li>
                     <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Mon compte<span class="caret"></span></a>
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="fa fa-user"></i><span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
                             <li>
-                                <a href="<?php echo URL; ?>login/monProfil">Mon profil</a>
+                                <a href="<?php echo URL; ?>profil/index">Mon profil</a>
                             </li>
                             <?php
                             if ((SESSION::get('user_admin')) == 1) :

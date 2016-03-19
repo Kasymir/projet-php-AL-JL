@@ -7,12 +7,9 @@ class User extends Table {
     public $prenom;
     public $email;
     public $mdp;
-    public $adresse;
-    public $code_postal;
-    public $ville;
     public $admin;
 
-    public function __construct($c = "", $n = "", $p = "",$e = "" , $mdp = "", $a = "", $cp = "", $v = "", $ad = "") {
+    public function __construct($c = "", $n = "", $p = "",$e = "" , $mdp = "", $ad = "") {
 
         parent::__construct();
 
@@ -21,9 +18,6 @@ class User extends Table {
         $this->prenom = $p;
         $this->email = $e;
         $this->mdp = $mdp;
-        $this->adresse = $a;
-        $this->code_postal = $cp;
-        $this->ville = $v;
         $this->admin = $ad;
 
     }

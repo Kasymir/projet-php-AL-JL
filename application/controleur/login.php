@@ -72,9 +72,9 @@ class Login extends Controller
             ) {
 
                 $this->loadModel("UserSQL");
-                $model_user = new UserSQL();
+                $model_userSQL = new UserSQL();
 
-                if ($model_user->findWithCondition('email = :e', array(':e' => $_POST['email']))->rowCount() == 0) {
+                if ($model_userSQL->findWithCondition('email = :e', array(':e' => $_POST['email']))->rowCount() == 0) {
 
                     if ($_POST['password'] == $_POST['password_verify']) {
 
@@ -88,10 +88,15 @@ class Login extends Controller
                         $adresse = $_POST['adresse'];
                         $code_postal = $_POST['code_postal'];
                         $ville = $_POST['ville'];
-                        $admin = 0;
 
-                        $model_user = new User($sexe, $nom, $prenom, $email, $mdp,$adresse,$code_postal,$ville,$admin);
+                        $model_user = new User($sexe, $nom, $prenom, $email, $mdp, 0);
                         $model_user->save();
+
+                        $model_userSQL->findAll()->orderBy('id', "DESC")->limit(0, 1)->execute();
+
+                        $this->loadModel("User_adresse");
+                        $model_user_adresse = new User_adresse($adresse, $code_postal, $ville, 1, 1, $model_userSQL->findAll()->orderBy('id', "DESC")->limit(0, 1)->execute()[0]->id);
+                        $model_user_adresse->save();
 
                         SESSION::set('feedback_positive', USER_CREATED);
                         header('Location: ' . URL . 'login/index');
@@ -100,7 +105,6 @@ class Login extends Controller
                         $this->view->post = $_POST;
                         SESSION::set('feedback_negative', REGISTER_FAILED_PASSWORD);
                         $this->view->render('login/inscription');
-
                     }
                 } else {
                     SESSION::set('feedback_negative', ALREADY_EXIST);
@@ -120,14 +124,20 @@ class Login extends Controller
     function monProfil()
     {
 
-        $this->loadModel("JoueurSQL");
-        $model_joueur = new JoueurSQL();
-        $this->loadModel("Joueur_raceSQL");
-        $model_race = new Joueur_raceSQL();
+        $this->loadModel("UserSQL");
+        $model_user = new UserSQL();
+        $this->loadModel("user_adresseSQL");
+        $model_user_adresse = new user_adresseSQL();
 
-        $this->view->infoJoueur = $model_joueur->findById(SESSION::get('user_id'));
-        $this->view->race = $model_race->findAll()->execute();
+        $this->view->infoUser = $model_user->findById(SESSION::get('user_id'));
+        $this->view->infoAdresse = $model_user_adresse ->findWithCondition('id_user = :idu' , array(':idu' => SESSION::get('user_id')))->execute();
 
+        $this->view->render('login/profil');
+
+    }
+
+    function update()
+    {
         if (isset($_POST['update'])) {
 
             $this->loadModel('Joueur');
@@ -150,8 +160,6 @@ class Login extends Controller
 
             header('Location: ' . URL . 'login/monProfil');
 
-        } else {
-            $this->view->render('login/profil');
         }
     }
 

@@ -16,7 +16,7 @@
                         M.
                     </label>
                     <label class="radio-inline">
-                        <input type="radio" name="sexe"
+                        <input type="radio" name="civilite"
                                value="2" <?= (isset($this->post['civilite'])) ? (($this->post['civilite'] == 2) ? "checked" : "") : "" ?>>
                         Mme.
                     </label>
