@@ -68,7 +68,7 @@
                             if ((SESSION::get('user_admin')) == 1) :
                                 ?>
                                 <li>
-                                    <a href="<?php echo URL; ?>">Gestion clients</a>
+                                    <a href="<?php echo URL; ?>client/manage">Gestion clients</a>
                                 </li>
                                 <li>
                                     <a href="<?php echo URL; ?>">Gestion commandes</a>
@@ -83,7 +83,7 @@
                             endif;
                             ?>
                             <li>
-                                <a href="<?php echo URL; ?>login/logout">Logout</a>
+                                <a href="<?php echo URL; ?>login/logout">Déconnexion</a>
                             </li>
                         </ul>
                     </li>

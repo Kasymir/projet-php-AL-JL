@@ -21,3 +21,4 @@ define('ALREADY_EXIST','Cette email exsite déjà');
 
 
 define('EMPTY_FIELD','Tous les champs sont obligatoires');
+define('HAVENT_OWN','Vous n\'avez pas les droits pour accéder à cette page');

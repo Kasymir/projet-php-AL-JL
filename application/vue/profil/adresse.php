@@ -20,10 +20,25 @@
                 <div class="panel-body">
                     <?php
                     foreach ($this->adresses as $a):
-                        ?>
-                        <?php echo "<pre>";
-                        var_dump($a);
-                        echo "</pre>"; ?>
+                        ?>what is the delire
+                        <table class="col-md-6">
+                            <caption><h4>Adresse de <?= ($a->facturation == 1) ? "facturation" : "livraison" ?></h4></caption>
+                            <tr>
+                                <td class="text-right">Adresse :</td>
+                                <td style="padding-left:12px;"><?= $a->adresse ?></td>
+                            </tr>
+                            <tr>
+                                <td class="text-right">Code postal :</td>
+                                <td  style="padding-left:12px;"><?= $a->code_postal ?></td>
+                            </tr>
+                            <tr>
+                                <td class="text-right">Ville :</td>
+                                <td  style="padding-left:12px;"><?= $a->ville ?></td>
+                            </tr>
+                            <tr>
+                                <td class="text-center" colspan="2"><a class="btn btn-default">Modifier</a></td>
+                            </tr>
+                        </table>
                         <?php
                     endforeach;
                     ?>

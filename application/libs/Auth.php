@@ -7,16 +7,20 @@
  */
 class Auth
 {
-    public static function handleLogin()
+    public static function isLog()
     {
-        // initialize the session
         Session::init();
 
-        // if user is still not logged in, then destroy session, handle user as "not logged in" and
-        // redirect user to login page
         if (!isset($_SESSION['user_id'])) {
             Session::destroy();
             header('location: ' . URL . 'login');
+        }
+    }
+    
+    public static function isAdmin()
+    {
+        if (!isset($_SESSION['user_admin'])) {
+            header('location: ' . URL . 'index');
         }
     }
 }

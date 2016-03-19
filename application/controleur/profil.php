@@ -29,7 +29,7 @@ class Profil extends Controller
         $this->loadModel('User_adresseSQL');
         $model_adresse = new User_adresseSQL();
         
-        $this->view->adresses = $model_adresse->findWithCondition('id_user = :idu' , array(':idu' => SESSION::get('user_id')));
+        $this->view->adresses = $model_adresse->findWithCondition('id_user = :idu' , array(':idu' => SESSION::get('user_id')))->execute();
         
         $this->view->render('profil/adresse');
     }
