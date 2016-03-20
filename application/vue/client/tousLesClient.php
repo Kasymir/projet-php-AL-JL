@@ -44,13 +44,13 @@
                                         </button>
                                         <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
                                             <li><a href="#"><i class="fa fa-wrench">&nbsp;</i>Modifier</a></li>
-                                            <li><a href="#" data-toggle="modal" data-target="#modalDelete"><i class="fa fa-trash">&nbsp;</i>Supprimer</a></li>
+                                            <li><a href="#" data-toggle="modal" data-target="#modalDelete<?=$u->id?>"><i class="fa fa-trash">&nbsp;</i>Supprimer</a></li>
                                         </ul>
                                     </div>
                                 </td>
                             </tr>
                             <!-- Modal DELETE -->
-                            <div class="modal fade" id="modalDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                            <div class="modal fade" id="modalDelete<?=$u->id?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -58,7 +58,8 @@
                                             <h4 class="modal-title" id="myModalLabel">Modal title</h4>
                                         </div>
                                         <div class="modal-body">
-                                            Voulez-vous réellement supprimer l'utilisateur <?=$u->prenom?> <?=$u->nom?>
+                                            <p>Voulez-vous réellement supprimer l'utilisateur <?=$u->prenom?> <?=$u->nom?></p>
+                                            <p>Ceci inclus la suppression de toutes les commandes, paniers, commentaires et adresse associés</p>
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>

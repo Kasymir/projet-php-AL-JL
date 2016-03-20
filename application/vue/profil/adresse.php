@@ -20,7 +20,7 @@
                 <div class="panel-body">
                     <?php
                     foreach ($this->adresses as $a):
-                        ?>what is the delire
+                        ?>
                         <table class="col-md-6">
                             <caption><h4>Adresse de <?= ($a->facturation == 1) ? "facturation" : "livraison" ?></h4></caption>
                             <tr>
