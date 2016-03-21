@@ -39,7 +39,7 @@
                     <a href="<?php echo URL; ?>index"><i class="fa fa-home"></i></a>
                 </li>
                 <li <?= ($this->checkForActiveControllerAndAction($filename, "film/index")) ? 'class="active"' : ""; ?>>
-                    <a href="<?php echo URL; ?>index">FILM</a>
+                    <a href="<?php echo URL; ?>film">FILM</a>
                 </li>
                 <li <?= ($this->checkForActiveControllerAndAction($filename, "serie/index")) ? 'class="active"' : ""; ?>>
                     <a href="<?php echo URL; ?>index">SERIE</a>
