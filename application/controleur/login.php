@@ -66,9 +66,12 @@ class Login extends Controller
                 !empty($_POST['email']) &&
                 !empty($_POST['password']) &&
                 !empty($_POST['password_verify']) &&
-                !empty($_POST['adresse']) &&
-                !empty($_POST['code_postal']) &&
-                !empty($_POST['ville'])
+                !empty($_POST['adresse_l']) &&
+                !empty($_POST['code_postal_l']) &&
+                !empty($_POST['ville_l']) &&
+                !empty($_POST['adresse_f']) &&
+                !empty($_POST['code_postal_f']) &&
+                !empty($_POST['ville_f'])
             ) {
 
                 $this->loadModel("UserSQL");
@@ -85,17 +88,31 @@ class Login extends Controller
                         $email = $_POST['email'];
                         $mdp = password_hash($_POST['password'], PASSWORD_BCRYPT);
                         $sexe = $_POST['civilite'];
-                        $adresse = $_POST['adresse'];
-                        $code_postal = $_POST['code_postal'];
-                        $ville = $_POST['ville'];
+
+                        //Adresse de livraison
+                        $adresse_l = $_POST['adresse_l'];
+                        $code_postal_l = $_POST['code_postal_l'];
+                        $ville_l = $_POST['ville_l'];
+
+                        //adresse de facturation
+                        $adresse_f = $_POST['adresse_f'];
+                        $code_postal_f = $_POST['code_postal_f'];
+                        $ville_f = $_POST['ville_f'];
 
                         $model_user = new User($sexe, $nom, $prenom, $email, $mdp, 0);
                         $model_user->save();
 
-                        $model_userSQL->findAll()->orderBy('id', "DESC")->limit(0, 1)->execute();
+                        // Prend le dernier id ajouté a la BD
+                        $id_user = $model_userSQL->findAll()->orderBy('id', "DESC")->limit(1, 1)->execute()[0]->id;
 
                         $this->loadModel("User_adresse");
-                        $model_user_adresse = new User_adresse($adresse, $code_postal, $ville, 1, 1, $model_userSQL->findAll()->orderBy('id', "DESC")->limit(0, 1)->execute()[0]->id);
+
+                        //sauvegarde adresse de livraison
+                        $model_user_adresse = new User_adresse($adresse_l, $code_postal_l, $ville_l, 0, 1, $id_user);
+                        $model_user_adresse->save();
+
+                        //sauvegarde adresse de facturation
+                        $model_user_adresse = new User_adresse($adresse_f, $code_postal_f, $ville_f, 1, 0, $id_user);
                         $model_user_adresse->save();
 
                         SESSION::set('feedback_positive', USER_CREATED);
@@ -118,48 +135,6 @@ class Login extends Controller
             }
         } else {
             $this->view->render('login/inscription');
-        }
-    }
-
-    function monProfil()
-    {
-
-        $this->loadModel("UserSQL");
-        $model_user = new UserSQL();
-        $this->loadModel("user_adresseSQL");
-        $model_user_adresse = new user_adresseSQL();
-
-        $this->view->infoUser = $model_user->findById(SESSION::get('user_id'));
-        $this->view->infoAdresse = $model_user_adresse ->findWithCondition('id_user = :idu' , array(':idu' => SESSION::get('user_id')))->execute();
-
-        $this->view->render('login/profil');
-
-    }
-
-    function update()
-    {
-        if (isset($_POST['update'])) {
-
-            $this->loadModel('Joueur');
-
-            $pseudo = $_POST['pseudo'];
-            $mdp = ($_POST['password'] != "") ? password_hash($_POST['password'], PASSWORD_BCRYPT) : $this->view->infoJoueur->mot_de_passe;
-            $age = $_POST['age'];
-            $sexe = $_POST['sexe'];
-            $race = $_POST['race'];
-            $vie = $this->view->infoJoueur->vie;
-            $xp = $this->view->infoJoueur->xp;
-            $valeur_pouvoir = $this->view->infoJoueur->valeur_pouvoir;
-            $admin = $this->view->infoJoueur->admin;
-
-            $table = new Joueur($pseudo, $mdp, $age, $sexe, $race, $vie, $xp, $valeur_pouvoir, $admin);
-            $table->setId(SESSION::get('user_id'));
-            $table->save();
-
-            SESSION::set('feedback_positive', USER_UPDATE);
-
-            header('Location: ' . URL . 'login/monProfil');
-
         }
     }
 

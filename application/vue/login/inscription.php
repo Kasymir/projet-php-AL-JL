@@ -61,29 +61,59 @@
                     </div>
                 </div>
 
-                <!-- CHOOSE THE ADRESSE -->
-                <div class="form-group">
-                    <div class="col-sm-12">
-                        <input type="text" class="form-control" name="adresse"
-                               placeholder="Adresse" <?= (isset($this->post['adresse'])) ? "value='" . $this->post['adresse'] . "'" : "" ?>>
+                <div class="col-md-6">
+                    <label>Adresse de Livraison :</label>
+                    <!-- CHOOSE THE ADRESSE LIVRAISON -->
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <input type="text" class="form-control" name="adresse_l" id="adresse_l"
+                                   placeholder="Adresse" <?= (isset($this->post['adresse_l'])) ? "value='" . $this->post['adresse_l'] . "'" : "" ?>>
+                        </div>
+                    </div>
+                    <!-- CHOOSE THE CODE POSTAL -->
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <input type="text" class="form-control" name="code_postal_l" id="code_postal_l"
+                                   placeholder="Code postal" <?= (isset($this->post['code_postal_l'])) ? "value='" . $this->post['code_postal_l'] . "'" : "" ?>>
+                        </div>
+                    </div>
+                    <!-- CHOOSE THE CIUDAD -->
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <input type="text" class="form-control" name="ville_l" id="ville_l"
+                                   placeholder="Ville" <?= (isset($this->post['ville_l'])) ? "value='" . $this->post['ville_l'] . "'" : "" ?>>
+                        </div>
                     </div>
                 </div>
-                <!-- CHOOSE THE CODE POSTAL -->
-                <div class="form-group">
-                    <div class="col-sm-12">
-                        <input type="text" class="form-control" name="code_postal"
-                               placeholder="Code postal" <?= (isset($this->post['code_postal'])) ? "value='" . $this->post['code_postal'] . "'" : "" ?>>
+                <div class="col-md-6">
+                    <label>Adresse de facturation :</label>
+                    <!-- CHOOSE THE ADRESSE FACTURATION -->
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <input type="text" class="form-control" name="adresse_f" id="adresse_f"
+                                   placeholder="Adresse" <?= (isset($this->post['adresse_f'])) ? "value='" . $this->post['adresse_f'] . "'" : "" ?>>
+                        </div>
+                    </div>
+                    <!-- CHOOSE THE CODE POSTAL -->
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <input type="text" class="form-control" name="code_postal_f" id="code_postal_f"
+                                   placeholder="Code postal" <?= (isset($this->post['code_postal_f'])) ? "value='" . $this->post['code_postal_f'] . "'" : "" ?>>
+                        </div>
+                    </div>
+                    <!-- CHOOSE THE CIUDAD -->
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <input type="text" class="form-control" name="ville_f" id="ville_f"
+                                   placeholder="Ville" <?= (isset($this->post['ville_f'])) ? "value='" . $this->post['ville_f'] . "'" : "" ?>>
+                        </div>
                     </div>
                 </div>
-                <!-- CHOOSE THE CIUDAD -->
                 <div class="form-group">
                     <div class="col-sm-12">
-                        <input type="text" class="form-control" name="ville"
-                               placeholder="Ville" <?= (isset($this->post['ville'])) ? "value='" . $this->post['ville'] . "'" : "" ?>>
+                        <input type="checkbox" id="adresse_identique" name="adresse_identique"><label for="adresse_identique">Adresse de facturation identique à celle de livraison</label>
                     </div>
                 </div>
-
-
                 <div class="form-group">
                     <div class="col-sm-12">
                         <input type="submit" class="btn btn-block btn-primary" name="register" value="S'incrire">
@@ -93,4 +123,3 @@
         </div>
     </form>
 </div>
-
