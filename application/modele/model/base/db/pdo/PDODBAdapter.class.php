@@ -50,8 +50,6 @@ class  PDODBAdapter implements DBAdapter{
             $this->query->execute();
         else
             $this->query->execute($params);
-        
-        
     }
     
     /**

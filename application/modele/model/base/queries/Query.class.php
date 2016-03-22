@@ -101,6 +101,10 @@ abstract class Query {
         $this->sql .= " ORDER BY $order";
         return $this;
     }
+
+    public function lastInsertId(){
+        return $this->dbAdapter->lastInsertId();
+    }
     
     
     /**

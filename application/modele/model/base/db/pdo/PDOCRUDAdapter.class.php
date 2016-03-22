@@ -105,13 +105,21 @@ class PDOCRUDAdapter implements CRUDAdapter {
         if($instance->isNew()==true) {
             return;
         }
-        
         $tableName = $instance->getTableName();
         
         $sql = "DELETE FROM $tableName WHERE id=?";
         
         $this->pdodbadapter->prepare($sql);
         $this->pdodbadapter->execute(array($instance->getId()));
+    }
+    
+    public function multiDelete($cond, $param , $instance){
+
+        $tableName = $instance->getTableName();
+
+        $sql = "DELETE FROM $tableName WHERE $cond ";
+        $this->pdodbadapter->prepare($sql);
+        $this->pdodbadapter->execute($param);
     }
 }
 

@@ -22,20 +22,50 @@ class Client extends Controller
     }
     
     function delete($id){
+
         Auth::isAdmin();
 
         $this->loadModel('User');
         $this->loadModel('User_adresseSQL');
 
         //Supprime les commandes et les produits associées à l'utilisateur
+        $this->loadModel('CommandeSQL');
         $model_commande = new CommandeSQL();
-        $commandes = $model_commande->findWithCondition('id_user = :idu' , array(':idu'=>$id));
-
-        foreach ($commandes as $c){
-            
-        }
+        $nbcommandes = $model_commande->findWithCondition('id_user = :idu' , array(':idu'=>$id))->rowCount();
+        $commandes = $model_commande->findWithCondition('id_user = :idu' , array(':idu'=>$id))->execute();
         
+        if($nbcommandes > 0){
+            foreach ($commandes as $c){
+                $this->loadModel('Commande_produit');
+                $table_commande_produit = new Commande_produit();
+                $table_commande_produit->multiDelete('id_commande = :idc',array(':idc' => $c->id));
+            }
+
+            //supprime commande_produit
+            $this->loadModel('Commande');
+            $table_commande = new Commande();
+            $table_commande->multiDelete('id_user = :idu',array(':idu' => $id));
+        }
+
+        //supprime panier_produit
+        $this->loadModel('PanierSQL');
+        $model_panier = new PanierSQL();
+        $panier = $model_panier->findWithCondition('id_user = :idu',array(':idu'=>$id))->execute();
+
+        $this->loadModel('Panier_produit');
+        $table_panier_produit = new Panier_produit();
+        $table_panier_produit->multiDelete('id_panier = :idp' , array(':idp',$panier[0]->id));
+
         //suppression du panier
+        $this->loadModel('Panier');
+        $table_panier = new Panier();
+        $table_panier->multiDelete('id_user = :idu',array(':idu'=>$id));
+
+
+        //supprime les avis
+        $this->loadModel('Avis');
+        $table_avis = new Avis();
+        $table_avis->multiDelete('id_user = :idu',array(':idu' => $id));
 
 
         // Supprime les adresses associées à l'utilisateur

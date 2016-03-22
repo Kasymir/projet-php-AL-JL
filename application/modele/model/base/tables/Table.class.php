@@ -35,9 +35,15 @@ abstract class Table {
      * Ask crudAdpater to do that
      */
     public function delete() {
-        $this->crudAdapter->delete($this);
         $this->_isNew = true;
     }
+
+    public function multiDelete($cond, $param){
+        $this->crudAdapter->multiDelete($cond,$param,$this);
+        $this->_isNew = true;
+    }
+
+
     /**
      * Return the table name
      * in fact return the name of the class in lower case
@@ -73,5 +79,4 @@ abstract class Table {
         if($this->id===false)
             $this->id = $id;
     }
-    
 }

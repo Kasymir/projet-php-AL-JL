@@ -114,6 +114,11 @@ class Login extends Controller
                         //sauvegarde adresse de facturation
                         $model_user_adresse = new User_adresse($adresse_f, $code_postal_f, $ville_f, 1, 0, $id_user);
                         $model_user_adresse->save();
+                        
+                        //on lui associe un nouveau panier vide
+                        $this->loadModel('Panier');
+                        $model_panier = new Panier($model_userSQL->lastInsertId());
+                        
 
                         SESSION::set('feedback_positive', USER_CREATED);
                         header('Location: ' . URL . 'login/index');

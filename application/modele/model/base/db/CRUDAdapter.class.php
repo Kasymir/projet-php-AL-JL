@@ -14,6 +14,6 @@ interface CRUDAdapter {
     /**
      * delete the instance from the database
      */
-    
     function delete($instance);
+
 }
