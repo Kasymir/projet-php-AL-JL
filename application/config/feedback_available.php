@@ -20,6 +20,11 @@ define('USER_UPDATE', "Modification effectués");
 define('REGISTER_FAILED_PASSWORD','Les mots de passes ne correspondent pas');
 define('ALREADY_EXIST','Cette email exsite déjà');
 
+define('CATEGORY_DELETED','La catégorie à bien été supprimé');
+define('CATEGORY_USED','La catégorie est encore utilisé');
+define('CATEGORIE_ADD','La catégoriea été ajouté');
+define('CATEGORIE_ALREADY_EXIST','La catégorie exsite déjà');
+
 
 define('EMPTY_FIELD','Tous les champs sont obligatoires');
 define('HAVENT_OWN','Vous n\'avez pas les droits pour accéder à cette page');

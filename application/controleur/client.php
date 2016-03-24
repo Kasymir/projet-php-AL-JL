@@ -30,12 +30,11 @@ class Client extends Controller
 
         //Supprime les commandes et les produits associées à l'utilisateur
         $this->loadModel('CommandeSQL');
-        $model_commande = new CommandeSQL();
-        $nbcommandes = $model_commande->findWithCondition('id_user = :idu' , array(':idu'=>$id))->rowCount();
-        $commandes = $model_commande->findWithCondition('id_user = :idu' , array(':idu'=>$id))->execute();
-        
-        if($nbcommandes > 0){
-            foreach ($commandes as $c){
+        $model_commande = new CommandeSQL();$nbcommandes = $model_commande->findWithCondition('id_user = :idu' , array(':idu'=>$id))->rowCount();
+        $commandes = $model_commande->findWithCondition('id_user = :idu' , array(':idu'=>$id));
+
+        if($commandes->rowCount() > 0){
+            foreach ($commandes->execute() as $c){
                 $this->loadModel('Commande_produit');
                 $table_commande_produit = new Commande_produit();
                 $table_commande_produit->multiDelete('id_commande = :idc',array(':idc' => $c->id));
@@ -50,11 +49,13 @@ class Client extends Controller
         //supprime panier_produit
         $this->loadModel('PanierSQL');
         $model_panier = new PanierSQL();
-        $panier = $model_panier->findWithCondition('id_user = :idu',array(':idu'=>$id))->execute();
+        $panier = $model_panier->findWithCondition('id_user = :idu',array(':idu'=>$id));
 
-        $this->loadModel('Panier_produit');
-        $table_panier_produit = new Panier_produit();
-        $table_panier_produit->multiDelete('id_panier = :idp' , array(':idp',$panier[0]->id));
+        if($panier->rowCount()>0) {
+            $this->loadModel('Panier_produit');
+            $table_panier_produit = new Panier_produit();
+            $table_panier_produit->multiDelete('id_panier = :idp', array(':idp', $panier->execute()[0]->id));
+        }
 
         //suppression du panier
         $this->loadModel('Panier');

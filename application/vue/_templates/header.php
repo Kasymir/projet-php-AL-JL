@@ -77,7 +77,10 @@
                                     <a href="<?php echo URL; ?>">Gestion commantaires</a>
                                 </li>
                                 <li>
-                                    <a href="<?php echo URL; ?>">Gestion produits</a>
+                                    <a href="<?php echo URL; ?>produit/manage">Gestion produits</a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo URL; ?>categories/manage">Gestion categories</a>
                                 </li>
                                 <?php
                             endif;

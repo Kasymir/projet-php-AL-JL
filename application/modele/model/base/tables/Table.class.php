@@ -35,6 +35,7 @@ abstract class Table {
      * Ask crudAdpater to do that
      */
     public function delete() {
+        $this->crudAdapter->delete($this);
         $this->_isNew = true;
     }
 

@@ -103,7 +103,7 @@ class Login extends Controller
                         $model_user->save();
 
                         // Prend le dernier id ajouté a la BD
-                        $id_user = $model_userSQL->findAll()->orderBy('id', "DESC")->limit(1, 1)->execute()[0]->id;
+                        $id_user = $model_userSQL->lastInsertId();
 
                         $this->loadModel("User_adresse");
 
@@ -117,7 +117,8 @@ class Login extends Controller
                         
                         //on lui associe un nouveau panier vide
                         $this->loadModel('Panier');
-                        $model_panier = new Panier($model_userSQL->lastInsertId());
+                        $model_panier = new Panier($id_user);
+                        $model_panier->save();
                         
 
                         SESSION::set('feedback_positive', USER_CREATED);

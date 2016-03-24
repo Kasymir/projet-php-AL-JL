@@ -51,7 +51,7 @@ CREATE TABLE `caracteristique` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `categorie`
+-- Structure de la table `categories`
 --
 
 CREATE TABLE `categorie` (
@@ -176,7 +176,7 @@ ALTER TABLE `caracteristique`
   ADD PRIMARY KEY (`id`);
 
 --
--- Index pour la table `categorie`
+-- Index pour la table `categories`
 --
 ALTER TABLE `categorie`
   ADD PRIMARY KEY (`id`);
@@ -220,7 +220,7 @@ ALTER TABLE `avis`
 ALTER TABLE `caracteristique`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT pour la table `categorie`
+-- AUTO_INCREMENT pour la table `categories`
 --
 ALTER TABLE `categorie`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
