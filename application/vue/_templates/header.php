@@ -56,8 +56,10 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <?php if (Session::get('user_name') == true) { ?>
-                    <li><p class="navbar-text hidden-sm">Bienvenue <?php echo Session::get('user_name'); ?></p></li>
-                    <li><a href="<?php echo URL; ?>"><i class="fa fa-shopping-cart"></i></a></li>
+                <li><p class="navbar-text hidden-sm">Bienvenue <?php echo Session::get('user_name'); ?></p></li>
+                <?php } ?>
+                <li><a href="<?php echo URL; ?>"><i class="fa fa-shopping-cart"></i></a></li>
+                <?php if (Session::get('user_name') == true) { ?>
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="fa fa-user"></i><span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">

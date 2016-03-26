@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  localhost
--- Généré le :  Sam 26 Mars 2016 à 09:00
+-- Généré le :  Sam 26 Mars 2016 à 09:12
 -- Version du serveur :  5.7.10
 -- Version de PHP :  5.5.31
 
@@ -191,6 +191,7 @@ CREATE TABLE `user` (
   `prenom` varchar(50) NOT NULL,
   `email` varchar(100) NOT NULL,
   `mdp` varchar(60) NOT NULL,
+  `token` int(5) DEFAULT NULL,
   `admin` tinyint(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -198,8 +199,8 @@ CREATE TABLE `user` (
 -- Contenu de la table `user`
 --
 
-INSERT INTO `user` (`id`, `civilite`, `nom`, `prenom`, `email`, `mdp`, `admin`) VALUES
-(1, 1, 'le peru', 'jonathan', 'mail@mail.com', '$2y$10$eAgZsOS3ANsm2lknY3mFbOCny09I.9Cv.YW83xUN39aLA4NoOenjS', 1);
+INSERT INTO `user` (`id`, `civilite`, `nom`, `prenom`, `email`, `mdp`, `token`, `admin`) VALUES
+(1, 1, 'le peru', 'jonathan', 'mail@mail.com', '$2y$10$eAgZsOS3ANsm2lknY3mFbOCny09I.9Cv.YW83xUN39aLA4NoOenjS', 0, 1);
 
 -- --------------------------------------------------------
 
