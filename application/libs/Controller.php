@@ -24,6 +24,9 @@ class Controller
         __autoload("CRUDAdapter");
         __autoload("Table");
         __autoload("PDOCRUDAdapter");
+        
+        //inclusion de phpmailer
+        include('class.phpmailer.php');
 
         // user has remember-me-cookie ? then try to login with cookie ("remember me" feature)
         if (!isset($_SESSION['user_logged_in']) && isset($_COOKIE['rememberme'])) {

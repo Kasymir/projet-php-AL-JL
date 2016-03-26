@@ -43,7 +43,7 @@
                                             <i class="fa fa-angle-double-down"></i>
                                         </button>
                                         <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                                            <li><a href="#"><i class="fa fa-wrench">&nbsp;</i>Modifier</a></li>
+                                            <li><a href="#" data-toggle="modal" data-target="#modalUpdate<?=$u->id?>"><i class="fa fa-wrench">&nbsp;</i>Passer admin</a></li>
                                             <li><a href="#" data-toggle="modal" data-target="#modalDelete<?=$u->id?>"><i class="fa fa-trash">&nbsp;</i>Supprimer</a></li>
                                         </ul>
                                     </div>
@@ -64,6 +64,25 @@
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
                                             <a href="<?=URL?>client/delete/<?=$u->id?>" class="btn btn-danger">Supprimer</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Modal UPDATE -->
+                            <div class="modal fade" id="modalUpdate<?=$u->id?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                            <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>Voulez-vous réellement passer admin l'utilisateur <?=$u->prenom?> <?=$u->nom?></p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                                            <a href="<?=URL?>client/add/<?=$u->id?>" class="btn btn-primary">Passer admin</a>
                                         </div>
                                     </div>
                                 </div>

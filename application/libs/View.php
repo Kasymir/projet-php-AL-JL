@@ -16,6 +16,7 @@ class View
      */
     public function render($filename, $render_without_header_and_footer = false)
     {
+        
         // page without header and footer, for whatever reason
         if ($render_without_header_and_footer == true) {
             require VIEWS_PATH . $filename . '.php';

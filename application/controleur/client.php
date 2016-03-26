@@ -86,4 +86,19 @@ class Client extends Controller
         SESSION::set('feedback_positive',USER_DELETED);
         header('Location: ' . URL . 'client/manage');
     }
+
+    function add($id){
+
+        $this->loadModel('UserSQL');
+        $model_client = new UserSQL();
+        $client = $model_client->findById($id);
+
+        $this->loadModel('User');
+        $table_client = new User($client->civilite,$client->nom,$client->prenom,$client->email,$client->mdp,(($client->admin==0)?1:0));
+        $table_client->setId($id);
+        
+        Session::set('feedback_positive',USER_UPDATE);
+        header('Location:' . URL . 'client/manage');
+
+    }
 }
