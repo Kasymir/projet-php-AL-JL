@@ -1,7 +1,7 @@
 $(document).ready(function () {
     
     
-    // Fonction a l'inscription permettant de bloquer l'adresse de livraison si elles sont identiques
+    // Fonction a l'inscription permettant de bloquer et preremplir l'adresse de livraison si elles sont identiques
     $(document).on("click","#adresse_identique",function(e){
 
         if($(this).is(":checked")){
@@ -19,4 +19,20 @@ $(document).ready(function () {
             $('#ville_f').removeAttr('readonly');
         }
     });
+
+
+    // Dans la gestion d'ajout Catégorie, ajout des inputs si celui du dessus n"est pas vide
+    $(document).on('keyup','.carac-categorie',function(){
+        // caracteristique-categorie = id du groupe
+        //recuperation id input
+        $id = parseInt($(this).attr('id').charAt($(this).attr('id').length-1))+1;
+
+        if($(this).val().length > 0){
+            if($(this).val().length < 2 )
+            $("#caracteristique-categorie").append('<input type ="text" name="caracteristique[]" placeholder="caracteristique associé" class="form-control carac-categorie" id="carac'+$id+'" >');
+        }else{
+            $(this).remove();
+        }
+    });
+
 });
