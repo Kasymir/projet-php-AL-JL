@@ -1,6 +1,21 @@
 body{
     padding-top : 70px;
     min-height: 500px;
+    background-image: url(../images/bg.jpg);
+    background-size: cover;
+    background-attachment: fixed;
+}
+.navbar{
+	background-color: #353535;
+	border: none;
+}
+
+.navbar-default .navbar-nav > li > a {
+	color: white;
+}
+.navbar-default .navbar-nav > li > a:hover {
+	color: white;
+	text-shadow: 1px 1px 5px white;
 }
 
 .navbar-fixed-bottom .navbar-collapse, .navbar-fixed-top .navbar-collapse{
@@ -21,4 +36,65 @@ body{
 }
 .fa-6{
     font-size: 20em;
+}
+
+.col-xs-15,
+.col-sm-15,
+.col-md-15,
+.col-lg-15 {
+    position: relative;
+    min-height: 1px;
+    padding-right: 10px;
+    padding-left: 10px;
+    margin: 1%;
+    height: 183px;
+
+}
+
+.col-xs-15 {
+    width: 18%;
+    float: left;
+}
+@media (min-width: 768px) {
+.col-sm-15 {
+        width: 18%;
+        float: left;
+    }
+}
+@media (min-width: 992px) {
+    .col-md-15 {
+        width: 18%;
+        float: left;
+    }
+}
+@media (min-width: 1200px) {
+    .col-lg-15 {
+        width: 18%;
+        float: left;
+    }
+}
+
+.film {
+	background-image: url(../images/film.png);
+	background-size: cover;
+}
+
+.bd {
+	background-image: url(../images/book.png);
+	background-size: cover;
+}
+
+.musique {
+	background-image: url(../images/music.png);
+	background-size: cover;
+}
+
+.serie {
+	background-image: url(../images/tvshow.png);
+	background-size: cover;
+}
+
+.jeu {
+	background-image: url(../images/game.png);
+	background-size: cover;
 }

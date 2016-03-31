@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Boutique</title>
+    <title>Tur-fu Shop</title>
     
     <link href="<?=URL?>public/css/bootstrap.css" rel="stylesheet">
     <link href="<?=URL?>public/css/font-awesome.css" rel="stylesheet">
@@ -33,7 +33,7 @@
                     <a href="<?php echo URL; ?>index"><i class="fa fa-home"></i></a>
                 </li>
                 <li <?= ($this->checkForActiveControllerAndAction($filename, "film/index")) ? 'class="active"' : ""; ?>>
-                    <a href="<?php echo URL; ?>Categorie/index/<?=$f->nom?>">FILM</a>
+                    <a href="<?php echo URL; ?>film">FILM</a>
                 </li>
                 <li <?= ($this->checkForActiveControllerAndAction($filename, "serie/index")) ? 'class="active"' : ""; ?>>
                     <a href="<?php echo URL; ?>index">SERIE</a>
@@ -94,9 +94,9 @@
                     </li>
                 <?php } else { ?>
                     <li <?= ($this->checkForActiveControllerAndAction($filename, "login/index")) ? 'class="active"' : ""; ?>>
-                        <a href="<?php echo URL . 'login'; ?>"><i class="fa fa-sign-in"></i></a></li>
+                        <a href="<?php echo URL . 'login'; ?>"><i class="fa fa-sign-in"></i> Connexion</a></li>
                     <li <?= ($this->checkForActiveControllerAndAction($filename, "login/inscription")) ? 'class="active"' : ""; ?>>
-                        <a href="<?php echo URL . 'login/register'; ?>"><i class="fa fa-user-plus"></i></a></li>
+                        <a href="<?php echo URL . 'login/register'; ?>"><i class="fa fa-user-plus"></i> Inscription</a></li>
                 <?php } ?>
             </ul>
         </div>
