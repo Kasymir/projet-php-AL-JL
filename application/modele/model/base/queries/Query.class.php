@@ -106,6 +106,12 @@ abstract class Query {
         return $this->dbAdapter->lastInsertId();
     }
     
+    public function maxId($params=false){
+        $this->sql = "SELECT max(id) as maxid from $this->tableName";
+        $this->params = $params;
+        return $this;
+    }
+    
     
     /**
      * Automate  function findByXXX where XXX is a field of the given table

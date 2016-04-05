@@ -24,7 +24,12 @@ define('CATEGORY_DELETED','La catégorie à bien été supprimé');
 define('CATEGORY_USED','La catégorie est encore utilisé');
 define('CATEGORIE_ADD','La catégoriea été ajouté');
 define('CATEGORIE_ALREADY_EXIST','La catégorie exsite déjà');
+define('USER_UPDATE_HIMSELF','Impossible de vous enlever les droits');
+define('USER_DELETE_HIMSELF','Impossible de vous supprimer');
 
 
 define('EMPTY_FIELD','Tous les champs sont obligatoires');
 define('HAVENT_OWN','Vous n\'avez pas les droits pour accéder à cette page');
+
+define('PRODUCT_CREATED','Vous avez créé un nouveau produit');
+define('EXTENSION_FALSE','Mauvaise extension d\'image');

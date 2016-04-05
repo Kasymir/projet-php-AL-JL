@@ -7,11 +7,11 @@ class Produits extends Table {
     public $prix;
     public $visible;
     public $nouveaute;
+    public $nb_ventes;
     public $stock;
-    public $url_image;
     public $id_categorie;
 
-    public function __construct($t = "", $d = "", $p = "", $v = "", $n = "", $s = "", $ui = "", $idc = "") {
+    public function __construct($t = "", $d = "", $p = "", $v = "", $n = "", $nbv = "", $s = "", $idc = "") {
 
         parent::__construct();
 
@@ -20,8 +20,8 @@ class Produits extends Table {
         $this->prix = $p;
         $this->visible = $v;
         $this->nouveaute = $n;
+        $this->nb_ventes = $nbv;
         $this->stock = $s;
-        $this->url_image = $ui;
         $this->id_categorie = $idc;
 
     }

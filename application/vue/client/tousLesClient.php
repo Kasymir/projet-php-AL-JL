@@ -43,7 +43,7 @@
                                             <i class="fa fa-angle-double-down"></i>
                                         </button>
                                         <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                                            <li><a href="#" data-toggle="modal" data-target="#modalUpdate<?=$u->id?>"><i class="fa fa-wrench">&nbsp;</i>Passer admin</a></li>
+                                            <li><a href="#" data-toggle="modal" data-target="#modalUpdate<?=$u->id?>"><i class="fa fa-wrench">&nbsp;</i>Modifier les droits</a></li>
                                             <li><a href="#" data-toggle="modal" data-target="#modalDelete<?=$u->id?>"><i class="fa fa-trash">&nbsp;</i>Supprimer</a></li>
                                         </ul>
                                     </div>
@@ -78,11 +78,11 @@
                                             <h4 class="modal-title" id="myModalLabel">Modal title</h4>
                                         </div>
                                         <div class="modal-body">
-                                            <p>Voulez-vous réellement passer admin l'utilisateur <?=$u->prenom?> <?=$u->nom?></p>
+                                            <p>Voulez-vous réellement mettre ou enlever les droits de l'utilisateur <?=$u->prenom?> <?=$u->nom?></p>
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
-                                            <a href="<?=URL?>client/add/<?=$u->id?>" class="btn btn-primary">Passer admin</a>
+                                            <a href="<?=URL?>client/update/<?=$u->id?>" class="btn btn-primary">Changer les droits</a>
                                         </div>
                                     </div>
                                 </div>

@@ -10,6 +10,8 @@ class Profil extends Controller
     }
 
     function index(){
+        
+        Auth::isLog();
 
         $this->loadModel("UserSQL");
         $model_user = new UserSQL();
@@ -25,6 +27,8 @@ class Profil extends Controller
     }
     
     function adresse(){
+
+        Auth::isLog();
         
         $this->loadModel('User_adresseSQL');
         $model_adresse = new User_adresseSQL();
@@ -35,9 +39,15 @@ class Profil extends Controller
     }
     
     function commandePassees(){
+
+        Auth::isLog();
+        
         $this->view->render('profil/commandePassees');
     }
     function commandeEnCours(){
+
+        Auth::isLog();
+        
         $this->view->render('profil/commandeEnCours');
     }
 }

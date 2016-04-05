@@ -16,53 +16,26 @@
             </div>
             <a data-toggle="modal" data-target="#modalAdd" class="pull-right"><i class="fa fa-plus-square-o fa-2"></i></a>
             <div class="panel-body">
-                <!-- Modal ADD -->
-                <div class="modal fade" id="modalAdd" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                    <div class="modal-dialog" role="document">
-                        <form action="<?=URL?>/produit/add" method="post">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                    <h4 class="modal-title" id="myModalLabel">Modal title</h4>
-                                </div>
-                                <div class="modal-body">
-                                    <div class="form-group">
-                                        <input type="file" name="image" class="form-control">
-                                        <select name="categorie" class="form-control">
-                                            <?php foreach ($this->categorie as $c) :?>
-                                                <option value="<?=$c->id?>"><?=$c->nom?></option>
-                                            <?php endforeach;?>
-                                        </select>
-                                        <input type="text" name="titre" class="form-control" placeholder="Titre">
-                                        <textarea name="description" placeholder="Description" class="form-control"></textarea>
-                                        <input type="number" name="prix" min="0" step="any" class="form-control" placeholder="prix">
-                                        <input type="number" min="0" max="999" name="stock" placeholder="stock" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
-                                    <input type="submit" class="btn btn-primary" value="Ajouter">
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
                 <table class="table">
                     <tr>
                         <th>#</th>
-                        <th>image</th>
                         <th>titre</th>
                         <th>description</th>
                         <th>prix</th>
                         <th>stock</th>
                         <th>visible</th>
+                        <th>action</th>
                     </tr>
                     <?php
                     foreach ($this->produits as $p):
                         ?>
                         <tr>
-                            <td><?=$r->id;?></td>
-                            <td><?=$r->nom;?></td>
+                            <td><?=$p->id;?></td>
+                            <td><?=$p->titre?></td>
+                            <td><?=$p->description?></td>
+                            <td><?=$p->prix?>€</td>
+                            <td><?=$p->stock?></td>
+                            <td><?=$p->visible?></td>
                             <td>
                                 <div class="dropdown">
                                     <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -99,6 +72,40 @@
                 </table>
             </div>
         </div>
+    </div>
+</div>
+
+<!-- Modal ADD -->
+<div class="modal fade" id="modalAdd" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <form action="<?=URL?>produit/add" method="post" enctype="multipart/form-data">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h2 class="modal-title" id="myModalLabel">Ajouter un produit</h2>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <input type="file" name="image" class="form-control">
+                        <select name="categorie" id="categorieProduct" class="form-control">
+                            <option value="0">Selection une categorie</option>
+                            <?php foreach ($this->categorie as $c) :?>
+                                <option value="<?=$c->id?>"><?=$c->nom?></option>
+                            <?php endforeach;?>
+                        </select>
+                        <input type="text" name="titre" class="form-control" placeholder="Titre">
+                        <textarea name="description" placeholder="Description" class="form-control"></textarea>
+                        <input type="number" name="prix" min="0" step="any" class="form-control" placeholder="prix">
+                        <input type="number" min="0" max="999" name="stock" placeholder="stock" class="form-control">
+                        <div id="form-group-categorie"></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                    <input type="submit" class="btn btn-primary" value="Ajouter" name="ajouter">
+                </div>
+            </div>
+        </form>
     </div>
 </div>
 

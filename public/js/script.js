@@ -22,17 +22,36 @@ $(document).ready(function () {
 
 
     // Dans la gestion d'ajout Catégorie, ajout des inputs si celui du dessus n"est pas vide
-    $(document).on('keyup','.carac-categorie',function(){
-        // caracteristique-categorie = id du groupe
-        //recuperation id input
-        $id = parseInt($(this).attr('id').charAt($(this).attr('id').length-1))+1;
+    $(document).on('keyup','.carac-categorie',function(e){
 
-        if($(this).val().length > 0){
-            if($(this).val().length < 2 )
-            $("#caracteristique-categorie").append('<input type ="text" name="caracteristique[]" placeholder="caracteristique associé" class="form-control carac-categorie" id="carac'+$id+'" >');
-        }else{
-            $(this).remove();
+        if(e.keyCode>=65 && e.keyCode<=90){
+            // caracteristique-categorie = id du groupe
+            //recuperation id input
+            $id = parseInt($(this).attr('id').charAt($(this).attr('id').length-1))+1;
+
+            if($(this).val().length > 0){
+                if($(this).val().length < 2 )
+                    $("#caracteristique-categorie").append('<input type ="text" name="caracteristique[]" placeholder="caracteristique associé" class="form-control carac-categorie" id="carac'+$id+'" >');
+            }else{
+                $(this).remove();
+            }
         }
+    });
+
+    // Permet d'ajouter les champs de caracteristique selon la categorie du produit
+    $(document).on('change','#categorieProduct',function(e){
+        $.ajax({
+            url: "http://localhost/projet-php-AL-JL/produit/getCaracteristique/"+$(this).val(),
+            type: "get",
+            data: "html",
+            success: function(e){
+                $('#form-group-categorie').empty();
+                $('#form-group-categorie').append(e);
+            },
+            error: function(e){
+                
+            }
+        });
     });
 
 });

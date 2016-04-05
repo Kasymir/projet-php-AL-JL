@@ -16,6 +16,11 @@ class Categories extends Controller
         $this->loadModel('CategorieSQL');
         $model_categorie = new CategorieSQL();
         
+        $this->loadModel('CaracteristiqueSQL');
+        $model_caracteristique = new CaracteristiqueSQL();
+        
+        $this->view->caracteristique = $model_caracteristique->findAll()->execute();
+        
         $this->view->categories = $model_categorie->findAll()->execute();
         
         $this->view->render('categories/manage');
@@ -23,6 +28,9 @@ class Categories extends Controller
     }
 
     function add(){
+        
+        Auth::isAdmin();
+        
         $this->loadModel('CategorieSQL');
         $model_categorie = new CategorieSQL();
 
@@ -30,6 +38,25 @@ class Categories extends Controller
             $this->loadModel('Categorie');
             $table_categorie = new Categorie($_POST['nom']);
             $table_categorie->save();
+
+            $this->loadModel('Caracteristique');
+            $this->loadModel('CaracteristiqueSQL');
+            $this->loadModel('Type_caracteristique');
+            
+            foreach ($_POST['caracteristique'] as $c){
+
+                if(is_numeric($c)){
+                    $tc = new Type_caracteristique($model_categorie->maxId()->execute()[0]->maxid,$c);
+                }else{
+                    $c_tmp = new Caracteristique($c);
+                    $c_tmp->save();
+                    $model_caract = new CaracteristiqueSQL();
+                    $tc = new Type_caracteristique($model_categorie->maxId()->execute()[0]->maxid,$model_caract->maxId()->execute()[0]->maxid);
+                }
+
+                $tc->save();
+
+            }
 
             Session::set('feedback_positive',CATEGORIE_ADD);
             header('Location: ' . URL . 'categories/manage');

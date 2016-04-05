@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  localhost
--- Généré le :  Sam 26 Mars 2016 à 09:12
+-- Généré le :  Mar 05 Avril 2016 à 17:58
 -- Version du serveur :  5.7.10
 -- Version de PHP :  5.5.31
 
@@ -43,10 +43,20 @@ CREATE TABLE `avis` (
 
 CREATE TABLE `caracteristique` (
   `id` int(11) NOT NULL,
-  `nom` varchar(50) NOT NULL,
-  `description` text NOT NULL,
-  `id_produit` int(11) NOT NULL
+  `nom` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Contenu de la table `caracteristique`
+--
+
+INSERT INTO `caracteristique` (`id`, `nom`) VALUES
+(1, 'année'),
+(2, 'durée'),
+(3, 'réalisateur'),
+(4, 'sortie'),
+(5, 'DVD'),
+(6, 'dessinateur');
 
 -- --------------------------------------------------------
 
@@ -64,11 +74,8 @@ CREATE TABLE `categorie` (
 --
 
 INSERT INTO `categorie` (`id`, `nom`) VALUES
-(1, 'Film'),
-(2, 'Musique'),
-(3, 'Serie'),
-(4, 'BDs'),
-(5, 'Jeux');
+(1, 'film'),
+(2, 'bds');
 
 -- --------------------------------------------------------
 
@@ -102,10 +109,42 @@ CREATE TABLE `commande_produit` (
 --
 
 CREATE TABLE `composer` (
+  `id` int(11) NOT NULL,
   `id_article` int(11) NOT NULL,
   `id_caracteristique` int(11) NOT NULL,
   `value` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Contenu de la table `composer`
+--
+
+INSERT INTO `composer` (`id`, `id_article`, `id_caracteristique`, `value`) VALUES
+(1, 1, 1, '2017'),
+(2, 1, 6, 'MOI'),
+(3, 2, 1, '2017'),
+(4, 2, 6, 'MOI');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `image`
+--
+
+CREATE TABLE `image` (
+  `id` int(11) NOT NULL,
+  `url` varchar(255) NOT NULL,
+  `img_main` tinyint(4) NOT NULL,
+  `id_produit` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Contenu de la table `image`
+--
+
+INSERT INTO `image` (`id`, `url`, `img_main`, `id_produit`) VALUES
+(1, 'public/images/bds', 1, 1),
+(2, 'public/images/bds', 1, 2);
 
 -- --------------------------------------------------------
 
@@ -149,11 +188,19 @@ CREATE TABLE `produits` (
   `description` text NOT NULL,
   `prix` float NOT NULL,
   `visible` tinyint(1) NOT NULL,
-  `nouveauté` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `nouveaute` date NOT NULL,
+  `nb_ventes` int(11) NOT NULL,
   `stock` int(11) NOT NULL,
-  `url_image` varchar(255) NOT NULL,
   `id_categorie` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Contenu de la table `produits`
+--
+
+INSERT INTO `produits` (`id`, `titre`, `description`, `prix`, `visible`, `nouveaute`, `nb_ventes`, `stock`, `id_categorie`) VALUES
+(1, 'produit test', 'petit produit test qui donne vraiment envie de continuer le projet', 12, 1, '2016-04-05', 0, 123, 2),
+(2, 'produit test', 'petit produit test qui donne vraiment envie de continuer le projet', 12, 1, '2016-04-05', 0, 123, 2);
 
 -- --------------------------------------------------------
 
@@ -174,9 +221,23 @@ CREATE TABLE `transport` (
 --
 
 CREATE TABLE `type_caracteristique` (
+  `id` int(11) NOT NULL,
   `id_type` int(11) NOT NULL,
   `id_caracteristique` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Contenu de la table `type_caracteristique`
+--
+
+INSERT INTO `type_caracteristique` (`id`, `id_type`, `id_caracteristique`) VALUES
+(1, 1, 1),
+(2, 1, 2),
+(3, 1, 3),
+(4, 1, 4),
+(5, 1, 5),
+(6, 2, 1),
+(7, 2, 6);
 
 -- --------------------------------------------------------
 
@@ -242,8 +303,7 @@ ALTER TABLE `avis`
 -- Index pour la table `caracteristique`
 --
 ALTER TABLE `caracteristique`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `id_produit` (`id_produit`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Index pour la table `categorie`
@@ -255,6 +315,18 @@ ALTER TABLE `categorie`
 -- Index pour la table `commande`
 --
 ALTER TABLE `commande`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `composer`
+--
+ALTER TABLE `composer`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `image`
+--
+ALTER TABLE `image`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -273,6 +345,12 @@ ALTER TABLE `produits`
 -- Index pour la table `transport`
 --
 ALTER TABLE `transport`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `type_caracteristique`
+--
+ALTER TABLE `type_caracteristique`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -300,17 +378,27 @@ ALTER TABLE `avis`
 -- AUTO_INCREMENT pour la table `caracteristique`
 --
 ALTER TABLE `caracteristique`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT pour la table `categorie`
 --
 ALTER TABLE `categorie`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT pour la table `commande`
 --
 ALTER TABLE `commande`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT pour la table `composer`
+--
+ALTER TABLE `composer`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT pour la table `image`
+--
+ALTER TABLE `image`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT pour la table `panier`
 --
@@ -320,12 +408,17 @@ ALTER TABLE `panier`
 -- AUTO_INCREMENT pour la table `produits`
 --
 ALTER TABLE `produits`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT pour la table `transport`
 --
 ALTER TABLE `transport`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT pour la table `type_caracteristique`
+--
+ALTER TABLE `type_caracteristique`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT pour la table `user`
 --
