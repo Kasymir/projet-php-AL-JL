@@ -1,14 +1,9 @@
 <div class="container">
 
-    <div class="col-md-3 col-xs-12">
-        <div class="btn-group-vertical col-md-12" role="group">
-            <a class="btn btn-default" href="<?= URL ?>profil/index">Gestion clients</a>
-            <a class="btn btn-default" href="<?= URL ?>profil/adresse">Gestion des commandes</a>
-            <a class="btn btn-default" href="<?= URL ?>profil/commandePassees">Gestion des commentaires</a>
-            <a class="btn btn-default" href="<?= URL ?>profil/commandeEnCours">Gestion des produits</a>
-            <a class="btn btn-default" href="<?= URL ?>categorie/manage">Gestion des categories</a>
-        </div>
-    </div>
+    <?php
+    require VIEWS_PATH . '_templates/menu_admin.php';
+    ?>
+
     <div class="col-md-9">
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -25,7 +20,7 @@
                                 <div class="modal-header">
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                                             aria-hidden="true">&times;</span></button>
-                                    <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                                    <h4 class="modal-title" id="myModalLabel">Ajouter une catégorie</h4>
                                 </div>
                                 <div class="modal-body">
                                     <input type="text" name="nom" placeholder="Nom de la categorie"
@@ -94,7 +89,7 @@
                                                 <button type="button" class="close" data-dismiss="modal"
                                                         aria-label="Close"><span aria-hidden="true">&times;</span>
                                                 </button>
-                                                <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                                                <h4 class="modal-title" id="myModalLabel">Supprimer une cat"gorie</h4>
                                             </div>
                                             <div class="modal-body">
                                                 <p>Voulez-vous vraiment supprimer la categorie <?= $c->nom ?></p>

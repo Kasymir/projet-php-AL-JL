@@ -14,6 +14,8 @@
 
     <link href="<?=URL?>public/css/style.css" rel="stylesheet">
 
+    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.4/css/jquery.dataTables.css">
+    
 </head>
 <body>
 <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -84,6 +86,9 @@
                                 <li>
                                     <a href="<?php echo URL; ?>categories/manage">Gestion categories</a>
                                 </li>
+                                <li>
+                                    <a href="<?php echo URL; ?>caracteristiques/manage">Gestion caracteristiques</a>
+                                </li>
                                 <?php
                             endif;
                             ?>
@@ -104,5 +109,6 @@
 </div>
 <div class="container">
     <!-- echo out the system feedback (error and success messages) -->
-    <?php $this->renderFeedbackMessages(); ?>
+    <?php $this->renderFeedbackMessages();
+    ?>
 </div>

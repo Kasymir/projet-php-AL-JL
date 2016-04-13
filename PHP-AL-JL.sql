@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  localhost
--- Généré le :  Mar 05 Avril 2016 à 17:58
+-- Généré le :  Mer 13 Avril 2016 à 20:55
 -- Version du serveur :  5.7.10
 -- Version de PHP :  5.5.31
 
@@ -51,12 +51,11 @@ CREATE TABLE `caracteristique` (
 --
 
 INSERT INTO `caracteristique` (`id`, `nom`) VALUES
-(1, 'année'),
-(2, 'durée'),
-(3, 'réalisateur'),
-(4, 'sortie'),
-(5, 'DVD'),
-(6, 'dessinateur');
+(1, 'Année'),
+(2, 'Durée'),
+(3, 'Réalisateur'),
+(4, 'Dessinateur'),
+(5, '');
 
 -- --------------------------------------------------------
 
@@ -75,7 +74,7 @@ CREATE TABLE `categorie` (
 
 INSERT INTO `categorie` (`id`, `nom`) VALUES
 (1, 'film'),
-(2, 'bds');
+(2, 'BDs');
 
 -- --------------------------------------------------------
 
@@ -120,10 +119,22 @@ CREATE TABLE `composer` (
 --
 
 INSERT INTO `composer` (`id`, `id_article`, `id_caracteristique`, `value`) VALUES
-(1, 1, 1, '2017'),
-(2, 1, 6, 'MOI'),
-(3, 2, 1, '2017'),
-(4, 2, 6, 'MOI');
+(1, 1, 1, '2013'),
+(2, 1, 2, '1h56'),
+(3, 1, 3, 'Louis leterrier');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `extrait`
+--
+
+CREATE TABLE `extrait` (
+  `id` int(11) NOT NULL,
+  `nom` varchar(150) NOT NULL,
+  `url` varchar(255) NOT NULL,
+  `id_produit` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -143,8 +154,7 @@ CREATE TABLE `image` (
 --
 
 INSERT INTO `image` (`id`, `url`, `img_main`, `id_produit`) VALUES
-(1, 'public/images/bds', 1, 1),
-(2, 'public/images/bds', 1, 2);
+(1, 'public/images/film/17bf432fe67d0ba081013b42d4e2df4b.jpg', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -199,8 +209,7 @@ CREATE TABLE `produits` (
 --
 
 INSERT INTO `produits` (`id`, `titre`, `description`, `prix`, `visible`, `nouveaute`, `nb_ventes`, `stock`, `id_categorie`) VALUES
-(1, 'produit test', 'petit produit test qui donne vraiment envie de continuer le projet', 12, 1, '2016-04-05', 0, 123, 2),
-(2, 'produit test', 'petit produit test qui donne vraiment envie de continuer le projet', 12, 1, '2016-04-05', 0, 123, 2);
+(1, 'Insaisissable', 'Les 4 magiciens', 5, 1, '2016-04-12', 0, 5, 1);
 
 -- --------------------------------------------------------
 
@@ -234,10 +243,9 @@ INSERT INTO `type_caracteristique` (`id`, `id_type`, `id_caracteristique`) VALUE
 (1, 1, 1),
 (2, 1, 2),
 (3, 1, 3),
-(4, 1, 4),
-(5, 1, 5),
-(6, 2, 1),
-(7, 2, 6);
+(4, 2, 1),
+(5, 2, 4),
+(6, 2, 5);
 
 -- --------------------------------------------------------
 
@@ -261,7 +269,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `civilite`, `nom`, `prenom`, `email`, `mdp`, `token`, `admin`) VALUES
-(1, 1, 'le peru', 'jonathan', 'mail@mail.com', '$2y$10$eAgZsOS3ANsm2lknY3mFbOCny09I.9Cv.YW83xUN39aLA4NoOenjS', 0, 1);
+(1, 1, 'le peru', 'jonathan', 'mail@mail.com', '$2y$10$8Susfvjw0F6iZJtiflDSpO9.hvS1H/PHr4IHQTTvBuVeR3PxsdnWm', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -324,6 +332,12 @@ ALTER TABLE `composer`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Index pour la table `extrait`
+--
+ALTER TABLE `extrait`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Index pour la table `image`
 --
 ALTER TABLE `image`
@@ -378,7 +392,7 @@ ALTER TABLE `avis`
 -- AUTO_INCREMENT pour la table `caracteristique`
 --
 ALTER TABLE `caracteristique`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT pour la table `categorie`
 --
@@ -393,12 +407,17 @@ ALTER TABLE `commande`
 -- AUTO_INCREMENT pour la table `composer`
 --
 ALTER TABLE `composer`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT pour la table `extrait`
+--
+ALTER TABLE `extrait`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT pour la table `image`
 --
 ALTER TABLE `image`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT pour la table `panier`
 --
@@ -408,7 +427,7 @@ ALTER TABLE `panier`
 -- AUTO_INCREMENT pour la table `produits`
 --
 ALTER TABLE `produits`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT pour la table `transport`
 --
@@ -418,7 +437,7 @@ ALTER TABLE `transport`
 -- AUTO_INCREMENT pour la table `type_caracteristique`
 --
 ALTER TABLE `type_caracteristique`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT pour la table `user`
 --

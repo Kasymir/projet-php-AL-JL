@@ -1,19 +1,18 @@
 <?php
 
-class Image extends Table {
+class Extrait extends Table {
 
+    public $nom;
     public $url;
-    public $img_main;
     public $id_produit;
 
-    public function __construct($u = "", $im = "", $idp = "") {
+    public function __construct($n = "", $u = "", $idp = "") {
 
         parent::__construct();
 
+        $this->nom = $n;
         $this->url = $u;
-        $this->img_main = $im;
         $this->id_produit = $idp;
-
 
     }
 }

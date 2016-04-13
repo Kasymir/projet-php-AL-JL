@@ -8,8 +8,9 @@
             <a class="btn btn-default" href="<?=URL?>profil/commandeEnCours">Mes commandes en cours</a>
         </div>
     </div>
+
     <div class="col-md-9">
-        <form class="form-signin" role="form" action="<?php echo URL; ?>login/update/<?= $this->infoUser->id ?>"
+        <form class="form-signin" role="form" action="<?php echo URL; ?>profil/update/<?= $this->infoUser->id ?>"
               method="post">
 
             <div class="panel panel-default">

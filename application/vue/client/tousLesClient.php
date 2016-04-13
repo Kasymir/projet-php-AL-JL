@@ -1,13 +1,9 @@
 <div class="container">
 
-    <div class="col-md-3 col-xs-12">
-        <div class="btn-group-vertical col-md-12" role="group">
-            <a class="btn btn-default" href="<?= URL ?>profil/index">Gestion clients</a>
-            <a class="btn btn-default" href="<?= URL ?>profil/adresse">Gestion des commandes</a>
-            <a class="btn btn-default" href="<?= URL ?>profil/commandePassees">Gestion des commentaires</a>
-            <a class="btn btn-default" href="<?= URL ?>profil/commandeEnCours">Gestion des produits</a>
-        </div>
-    </div>
+    <?php
+    require VIEWS_PATH . '_templates/menu_admin.php';
+    ?>
+
     <div class="col-md-9">
         <form class="form-signin" role="form" action="<?php echo URL; ?>login/update/<?= $this->adresses->id ?>"
               method="post">
@@ -18,7 +14,8 @@
                 </div>
 
                 <div class="panel-body">
-                    <table class="table">
+                    <table class="table tableATrier" id="">
+                        <thead>
                         <tr>
                             <th>#</th>
                             <th>Nom</th>
@@ -27,6 +24,8 @@
                             <th>Admin</th>
                             <th>Action</th>
                         </tr>
+                        </thead>
+                        <tbody>
                         <?php
                         foreach ($this->users as $u):
                             ?>
@@ -55,7 +54,7 @@
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                            <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                                            <h4 class="modal-title" id="myModalLabel">Supprimer un client</h4>
                                         </div>
                                         <div class="modal-body">
                                             <p>Voulez-vous réellement supprimer l'utilisateur <?=$u->prenom?> <?=$u->nom?></p>
@@ -75,7 +74,7 @@
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                            <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                                            <h4 class="modal-title" id="myModalLabel">Modifier un client</h4>
                                         </div>
                                         <div class="modal-body">
                                             <p>Voulez-vous réellement mettre ou enlever les droits de l'utilisateur <?=$u->prenom?> <?=$u->nom?></p>
@@ -90,6 +89,7 @@
                             <?php
                         endforeach;
                         ?>
+                        </tbody>
                     </table>
                 </div>
             </div>
