@@ -20,6 +20,14 @@ class Index extends Controller
      */
     function index()
     {
+        $this->loadModel('produitsSQL');
+        $model_produits = new produitsSQL();
+        $this->view->produits = $model_produits->findAll()->execute();
+
+        $this->loadModel('CategorieSQL');
+        $model_categorie = new CategorieSQL();
+        
+        $this->view->categorie = $model_categorie->findAll()->execute();
         $this->view->render('index/index');
     }
 }
