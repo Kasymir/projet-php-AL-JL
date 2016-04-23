@@ -1,7 +1,7 @@
 <div class="container">
 
     <?php
-    require VIEWS_PATH . '_templates/menu_admin.php';
+    require VIEWS_PATH . '_templates/menu_gauche.php';
     ?>
 
     <div class="col-md-9">
@@ -43,13 +43,38 @@
                                         <i class="fa fa-angle-double-down"></i>
                                     </button>
                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                                        <li><a href="#" data-toggle="modal" data-target="#modalDelete<?= $p->id ?>"><i
+                                        <li><a href="#" data-toggle="modal" data-target="#modalActiver<?= $p->id ?>"><i
                                                     class="fa fa-trash">
                                                     &nbsp;</i><?= ($p->visible == 1) ? "Désactiver" : "Activer" ?></a>
                                         </li>
                                         <li><a href="<?=URL?>produit/update/<?=$p->id?>"><i
+                                                    class="fa fa-pencil">&nbsp;</i>Supprimer</a></li>
+                                        <li><a href="<?=URL?>produit/update/<?=$p->id?>"><i
                                                     class="fa fa-pencil">&nbsp;</i>Modifier</a></li>
                                     </ul>
+                                </div>
+                                <!-- Modal ACTIVER / DESACTIVER -->
+                                <div class="modal fade" id="modalActiver<?= $p->id ?>" tabindex="-1" role="dialog"
+                                     aria-labelledby="myModalLabel">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close"><span aria-hidden="true">&times;</span>
+                                                </button>
+                                                <h4 class="modal-title" id="myModalLabel">Désactiver un produit</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p>Voulez-vous vraiment désactiver/activer le produit <?= $p->titre ?></p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">
+                                                    Annuler
+                                                </button>
+                                                <a href="<?= URL ?>produit/desactiver/<?= $p->id ?>" class="btn btn-danger">Désactiver</a>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <!-- Modal DELETE -->
                                 <div class="modal fade" id="modalDelete<?= $p->id ?>" tabindex="-1" role="dialog"
@@ -63,13 +88,13 @@
                                                 <h4 class="modal-title" id="myModalLabel">Supprimer un produit</h4>
                                             </div>
                                             <div class="modal-body">
-                                                <p>Voulez-vous vraiment désactiver le produit <?= $p->titre ?></p>
+                                                <p>Voulez-vous vraiment supprimer le produit <?= $p->titre ?></p>
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-default" data-dismiss="modal">
                                                     Annuler
                                                 </button>
-                                                <a href="<?= URL ?>produit/delete/<?= $p->id ?>" class="btn btn-danger">Désactiver</a>
+                                                <a href="<?= URL ?>produit/delete/<?= $p->id ?>" class="btn btn-danger">Supprimer</a>
                                             </div>
                                         </div>
                                     </div>

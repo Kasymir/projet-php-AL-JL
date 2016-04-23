@@ -55,8 +55,10 @@ class Produit extends Controller
                     $path = 'public/images/' . $categorie->nom;
 
                     if (!is_dir($path))
-                        mkdir($path, 1755, true);
-
+                        if(mkdir($path)){
+                            Session::set('feedback_negative', FAILED_MKDIR);
+                            header('location: ' . URL . 'produit/manage');
+                        }
                     $nom = "{$path}/{$nom}.{$extension_upload}";
                     $resultat = move_uploaded_file($_FILES['image']['tmp_name'], $nom);
 
@@ -81,14 +83,20 @@ class Produit extends Controller
 
                     Session::set('feedback_positive', PRODUCT_CREATED);
                 } else {
+
                     Session::set('feedback_negative', EXTENSION_FALSE);
+
                 }
+
             } else {
+
                 Session::set('feedback_negative', EMPTY_FIELD);
+
             }
         }
 
         header('location: ' . URL . 'produit/manage');
+
     }
 
     function update($id){
@@ -99,16 +107,102 @@ class Produit extends Controller
         $this->loadModel('ImageSQL');
         $this->loadModel('ComposerSQL');
         $this->loadModel('CaracteristiqueSQL');
+        $this->loadModel('ExtraitSQL');
 
         $model_produit = new ProduitsSQL();
         $model_Image = new ImageSQL();
         $model_composer = new ComposerSQL();
         $model_caracteristique = new CaracteristiqueSQL();
+        $model_extrait = new ExtraitSQL();
+
+        if(isset($_POST['modifier'])){
+
+            $this->loadModel('Produits');
+            $this->loadModel('Image');
+            $this->loadModel('Composer');
+
+            // update produit de base
+            $model_produit = new ProduitsSQL();
+            $produit = $model_produit->findById($id);
+            $table_produit = new Produits($_POST['titre'],$_POST['description'],$_POST['prix'],(isset($_POST['visible'])?1:0),$produit->nouveaute,$produit->nb_ventes,$_POST['stock'],$produit->id_categorie);
+            $table_produit->setId($id);
+            $table_produit->save();
+
+
+            // update les differentes caracteristiques
+            foreach ($_POST['caracteristiques'] as $k=>$c){
+                $model_composer = new ComposerSQL();
+                $composer = $model_composer->findById($k);
+                $table_composer = new Composer($id,$composer->id_caracteristique,$c);
+                $table_composer->setId($k);
+                $table_composer->save();
+            }
+
+            // update images
+            foreach ($_FILES as $k=>$i){
+
+                // si integer, je modifie l'image sinon je l'ajoute
+                if(is_integer($k)){
+                    if(!empty($i['name'])){
+
+                        $nom = md5(uniqid(rand(), true));
+                        $extensions_valides = array('jpg', 'jpeg', 'gif', 'png');
+                        $extension_upload = strtolower(substr(strrchr($_FILES[$k]['name'], '.'), 1));
+
+                        $model_image = new ImageSQL();
+                        $image = $model_image->findById($k);
+
+                        if(in_array($extension_upload,$extensions_valides)){
+                            $categorie = explode("/",$image->url)[2];
+                            $path = "public/images/".$categorie;
+                            $nom = $path."/".$nom.".".$extension_upload;
+                            $resultat = move_uploaded_file($_FILES[$k]['tmp_name'], $nom);
+
+                            $table_image = new Image($nom,$image->img_main,$image->id_produit);
+                            $table_image->setId($k);
+                            $table_image->save();
+
+                        }else{
+                            Session::set('feedback_negative',EXTENSION_FALSE);
+                            header('Location:'.URL.'produit/manage/'.$id);
+                        }
+                    }
+                }
+                else{
+                    if(!empty($i['name'])){
+
+                        $nom = md5(uniqid(rand(), true));
+                        $extensions_valides = array('jpg', 'jpeg', 'gif', 'png');
+                        $extension_upload = strtolower(substr(strrchr($_FILES[$k]['name'], '.'), 1));
+
+                        $model_image = new ImageSQL();
+                        $image = $model_image->findWithCondition('id_produit = :idp and img_main = 1',array(':idp'=>$id))->execute()[0];
+
+                        if(in_array($extension_upload,$extensions_valides)){
+                            $categorie = explode("/",$image->url)[2];
+                            $path = "public/images/".$categorie;
+                            $nom = $path."/".$nom.".".$extension_upload;
+                            $resultat = move_uploaded_file($_FILES[$k]['tmp_name'], $nom);
+
+                            $table_image = new Image($nom, 0, $id,$produit->id_categorie);
+                            $table_image->save();
+
+                        }else{
+                            Session::set('feedback_negative',EXTENSION_FALSE);
+                            header('Location:'.URL.'produit/manage/'.$id);
+                        }
+                    }
+                }
+            }
+            Session::set('feedback_positive',PRODUCT_UPDATE);
+            header('Location:'.URL.'produit/manage/'.$id);
+        }
 
         $this->view->produit = $model_produit->findById($id);
         $this->view->images = $model_Image->findWithCondition('id_produit = :idp' , array(':idp'=>$id))->execute();
         $this->view->composer = $model_composer->findWithCondition('id_article = :idp' , array(':idp'=>$id))->execute();
         $this->view->caracteristique = $model_caracteristique->findAll()->execute();
+        $this->view->extrait = $model_extrait->findWithCondition('id_produit = :idp' , array(':idp'=>$id))->execute();
 
         $allIdcaracteristique = array();
 
@@ -135,17 +229,120 @@ class Produit extends Controller
         $model_produit = new ProduitsSQL();
         $p = $model_produit->findById($id);
 
+
+        // supprime l'image
+        $this->loadModel('ImageSQL');
+        $model_image = new ImageSQL();
+        $image = $model_image->findWithCondition('id_produit = :idp',array(':idp'=>$id))->execute();
+
+        $this->loadModel('Image');
+        foreach ($image as $i){
+            $image = new Image();
+            $image->setId($i->id);
+            $image->delete();
+            unlink($i->url);
+        }
+
+        // supprime les compositions
+        $this->loadModel('ComposerSQL');
+        $model_composer = new ComposerSQL();
+        $composer = $model_composer->findWithCondition('id_produit = :idp' , array(':idp',array(':idp',$id)));
+
+        $this->loadModel('Composer');
+        foreach ($composer as $c){
+            $composer = new Composer();
+            $composer->setId($c->id);
+            $composer->delete();
+        }
+
+        // supprime le produit
         $this->loadModel('Produits');
         $table_produit = new Produits($p->titre, $p->description, $p->prix, 0, $p->nouveaute, $p->nb_ventes, $p->stock, $p->id_categorie);
         $table_produit->setId($id);
-        $table_produit->save();
+        $table_produit->delete();
+
+        header('location: ' . URL . 'produit/manage');
     }
 
+    function desactiver($id){
+
+        $this->loadModel('ProduitsSQL');
+        $produit = new ProduitsSQL();
+        $p = $produit->findById($id);
+
+        $this->loadModel('Produits');
+        $produit = new Produits($p->titre,$p->description,$p->prix,$p->visible,$p->nouveaute,$p->nb_ventes,$p->stock,$p->id_categorie);
+        $produit->setId($id);
+
+        if($p->visible == 0)
+            $produit->visible = 1;
+        else
+            $produit->visible = 0;
+        $produit->save();
+        header('Location: '.URL.'produit/manage');
+    }
+
+
+    function addExtrait($id){
+
+        Auth::isAdmin();
+
+        $nom = md5(uniqid(rand(), true));
+        $extensions_valides = array('ogg', 'mp3', 'mp4', 'mpeg4', 'wav' , 'flv' , 'wmv' , 'mov', 'wav');
+        $extension_upload = strtolower(substr(strrchr($_FILES['extrait']['name'], '.'), 1));
+
+        $this->loadModel('ProduitsSQL');
+        $model_produit = new ProduitsSQL();
+        $idCategorie = $model_produit->findById($id)->id_categorie;
+
+
+        $this->loadModel('CategorieSQL');
+        $model_categorie = new CategorieSQL();
+        $categorie = $model_categorie->findById($idCategorie);
+
+        if(in_array($extension_upload,$extensions_valides)){
+            $path = "public/extraits/".$categorie->nom;
+
+            if (!is_dir($path))
+                if(mkdir($path)){
+                    Session::set('feedback_negative', FAILED_MKDIR);
+                    header('location: ' . URL . 'produit/manage');
+                }
+
+            $nom = $path."/".$nom.".".$extension_upload;
+            $resultat = move_uploaded_file($_FILES['extrait']['tmp_name'], $nom);
+
+            $this->loadModel('Extrait');
+            $table_extrait = new Extrait($_POST['titre'],$nom,$id);
+            $table_extrait->save();
+
+            Session::set('feedback_positive',EXTRAIT_ADD);
+            header('Location:'.URL.'produit/manage/'.$id);
+        }else{
+            Session::set('feedback_negative',EXTENSION_FALSE);
+            header('Location:'.URL.'produit/manage/'.$id);
+        }
+    }
+
+    function deleteExtrait($id){
+
+        $this->loadModel('ExtraitSQL');
+        $model_extrait = new ExtraitSQL();
+        $extrait = $model_extrait->findById($id);
+
+        unlink($extrait->url);
+
+        $this->loadModel('Extrait');
+        $table_extrait = new Extrait();
+        $table_extrait->setId($id);
+        $table_extrait->delete();
+
+        header('Location: '.URL.'produit/manage');
+    }
 
     /*
      * Fonction AJAX
      */
-
     function getCaracteristique($idCategorie)
     {
         $this->loadModel('Type_caracteristiqueSQL');

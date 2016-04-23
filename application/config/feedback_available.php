@@ -20,6 +20,10 @@ define('USER_UPDATE', "Modification effectués");
 define('REGISTER_FAILED_PASSWORD','Les mots de passes ne correspondent pas');
 define('ALREADY_EXIST','Cette email exsite déjà');
 
+define('PRODUCT_UPDATE','Produit mis a jour');
+define('EXTRAIT_ADD','Extrait ajouté');
+define('FAILED_MKDIR','Probleme lors de l\'insertion d\'image');
+
 define('CATEGORY_DELETED','La catégorie à bien été supprimé');
 define('CATEGORY_USED','La catégorie est encore utilisé');
 define('CATEGORIE_ADD','La catégoriea été ajouté');

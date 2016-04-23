@@ -1,7 +1,7 @@
 <div class="container">
 
     <?php
-    require VIEWS_PATH . '_templates/menu_admin.php';
+    require VIEWS_PATH . '_templates/menu_gauche.php';
     ?>
 
     <div class="col-md-9">
