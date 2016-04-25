@@ -59,4 +59,35 @@ $(document).ready(function () {
         });
     });
 
+    // Permet d'ajouter ou de supprimer les type_caracteristique
+    $(document).on('change','.caracteristiqueAjax', function(e){
+
+        if($(this).val() == 0){
+            // on ajoute une nouvelle ligne avec les parametres données dans l'attribut name sous la forme =>
+            // caracteristique-categorie
+
+            $checkbox = $(this);
+            $tableauID = $checkbox.attr('name').split('-');
+            $idCaracteristique = $tableauID[0];
+            $idCategorie = $tableauID[1];
+            $.ajax({
+                url: "http://localhost/projet-php-AL-JL/caracteristiques/addRelation/" + $idCaracteristique + "/" + $idCategorie,
+                type: "get",
+                data: "html",
+                success:function (a) {
+                    $checkbox.attr('value',a);
+                }
+            })
+        }else{
+            //supprime la ligne avec l'id passer dans la value
+            $idTypeCaracteristique = $(this).val();
+            $.ajax({
+                url: "http://localhost/projet-php-AL-JL/caracteristiques/deleteRelation/" + $idTypeCaracteristique,
+                success:function (a){
+                    $checkbox.attr('value',a);
+                }
+            });
+        }
+    });
+
 });

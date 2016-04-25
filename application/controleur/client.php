@@ -53,9 +53,17 @@ class Client extends Controller
             $panier = $model_panier->findWithCondition('id_user = :idu',array(':idu'=>$id));
 
             if($panier->rowCount()>0) {
-                $this->loadModel('Panier_produit');
-                $table_panier_produit = new Panier_produit();
-                $table_panier_produit->multiDelete('id_panier = :idp', array(':idp', $panier->execute()[0]->id));
+
+                $this->loadModel('Panier_produitSQL');
+                $model_panier_produit = new Panier_produitSQL();
+
+                $panier_produit = $model_panier_produit->findWithCondition('id_panier = :idp' , array(':idp'=>$panier->execute()[0]->id));
+
+                if($panier_produit->rowCount()>0){
+                    $this->loadModel('Panier_produit');
+                    $table_panier_produit = new Panier_produit();
+                    $table_panier_produit->multiDelete('id_panier = :idp', array(':idp', $panier->execute()[0]->id));
+                }
             }
 
             //suppression du panier

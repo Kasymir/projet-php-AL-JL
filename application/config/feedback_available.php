@@ -30,6 +30,7 @@ define('CATEGORIE_ADD','La catégoriea été ajouté');
 define('CATEGORIE_ALREADY_EXIST','La catégorie exsite déjà');
 define('USER_UPDATE_HIMSELF','Impossible de vous enlever les droits');
 define('USER_DELETE_HIMSELF','Impossible de vous supprimer');
+define('CARACTERISTIQUE_CREATED','Caracteristique crée');
 
 
 define('EMPTY_FIELD','Tous les champs sont obligatoires');
