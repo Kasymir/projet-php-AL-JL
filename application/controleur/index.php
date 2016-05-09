@@ -22,7 +22,7 @@ class Index extends Controller
     {
         $this->loadModel('produitsSQL');
         $model_produits = new produitsSQL();
-        $this->view->produits = $model_produits->findAll()->execute();
+        $this->view->produits = $model_produits->findProductWithImage();
 
         $this->loadModel('CategorieSQL');
         $model_categorie = new CategorieSQL();

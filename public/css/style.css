@@ -143,3 +143,5 @@ body{
 .col-md-3, .col-lg-12 {
     background: rgba(255,255,255,0.4);
 }
+
+.fixed {}
