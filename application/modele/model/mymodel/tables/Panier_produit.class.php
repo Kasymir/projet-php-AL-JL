@@ -4,7 +4,7 @@ class Panier_produit extends Table {
 
     public $id_produit;
     public $id_panier;
-    public $quantite;
+    public $version;
 
     public function __construct($idpr = "" , $idpa = "", $q = "") {
 
@@ -12,7 +12,7 @@ class Panier_produit extends Table {
 
         $this->id_produit = $idpr;
         $this->id_panier = $idpa;
-        $this->quantite = $q;
+        $this->version = $q;
 
     }
 }

@@ -34,25 +34,24 @@
                 <li <?= ($this->checkForActiveControllerAndAction($filename, "index/index")) ? 'class="active"' : ""; ?>>
                     <a href="<?php echo URL; ?>index"><i class="fa fa-home"></i></a>
                 </li>
-                <li <?= ($this->checkForActiveControllerAndAction($filename, "film/index")) ? 'class="active"' : ""; ?>>
-                    <a href="<?php echo URL; ?>film">FILM</a>
+                <li <?= ($this->checkForActiveControllerAndAction($filename, "categorie/index/film")) ? 'class="active"' : ""; ?>>
+                    <a href="<?php echo URL; ?>categories/index/film">FILM</a>
                 </li>
                 <li <?= ($this->checkForActiveControllerAndAction($filename, "serie/index")) ? 'class="active"' : ""; ?>>
-                    <a href="<?php echo URL; ?>index">SERIE</a>
+                    <a href="<?php echo URL; ?>categories/index/serie">SERIE</a>
                 </li>
                 <li <?= ($this->checkForActiveControllerAndAction($filename, "musique/index")) ? 'class="active"' : ""; ?>>
-                    <a href="<?php echo URL; ?>index">MUSIQUE</a>
+                    <a href="<?php echo URL; ?>categories/index/musique">MUSIQUE</a>
                 </li>
                 <li <?= ($this->checkForActiveControllerAndAction($filename, "bd/index")) ? 'class="active"' : ""; ?>>
-                    <a href="<?php echo URL; ?>index">BDs</a>
+                    <a href="<?php echo URL; ?>categories/index/bd">BDs</a>
                 </li>
                 <li <?= ($this->checkForActiveControllerAndAction($filename, "jeux/index")) ? 'class="active"' : ""; ?>>
-                    <a href="<?php echo URL; ?>index">JEUX</a>
+                    <a href="<?php echo URL; ?>categories/index/jeux">JEUX</a>
                 </li>
                 <li>
                     <form action="" class="navbar-form navbar-right">
                         <input class="form-control" placeholder="Rechercher">
-                        <button type="submit" class="btn btn-default" name="rechercher"><i class="fa fa-search"></i></button>
                     </form>
                 </li>
             </ul>

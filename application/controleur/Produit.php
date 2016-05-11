@@ -8,6 +8,23 @@ class Produit extends Controller
     {
         parent::__construct();
     }
+    
+    function index($id){
+        $this->loadModel('ProduitsSQL');
+        $model_produit = new ProduitsSQL();
+        $produit = $model_produit->findById($id);
+
+        $this->loadModel('ImageSQL');
+        $model_image = new ImageSQL();
+        $image_main = $model_image->findWithCondition('id_produit = :pid and img_main = 1',array(':pid' => $id))->execute();
+        $images = $model_image->findWithCondition('id_produit = :pid and img_main = 0',array(':pid' => $id))->execute();
+
+        $this->view->produit = $produit;
+        $this->view->image_main = $image_main[0];
+        $this->view->images = $images;
+
+        $this->view->render('produit/index');
+    }
 
     function manage()
     {

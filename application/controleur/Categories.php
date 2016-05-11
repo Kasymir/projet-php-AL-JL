@@ -8,6 +8,17 @@ class Categories extends Controller
     {
         parent::__construct();
     }
+    
+    function index($categorie){
+        $this->loadModel('ProduitsSQL');
+        $model_produit = new ProduitsSQL();
+        $produits = $model_produit->findProductByCategorie($categorie);
+
+        $this->view->produits = $produits;
+
+        $this->view->render('categories/index');
+        
+    }
 
     function manage(){
 
