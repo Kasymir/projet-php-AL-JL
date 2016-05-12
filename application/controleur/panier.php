@@ -9,6 +9,28 @@ class Panier extends Controller
         parent::__construct();
     }
 
+    function index(){
+
+        $this->loadModel('PanierSQL');
+        $model_panier = new PanierSQL();
+        $idPanier = $model_panier->findWithCondition('id_user = :uid',array(':uid'=>Session::get('user_id')))->execute();
+
+        $this->loadModel('Panier_produitSQL');
+        $model_panier_produit = new Panier_produitSQL();
+        $this->view->produits = $model_panier_produit->getProductByIdPanier($idPanier[0]->id);
+        
+        $this->view->somme = 0;
+        foreach($this->view->produits as $p){
+            $this->view->sommme += $p->prix;
+        }
+
+        $this->view->fdp = '';
+
+
+        $this->view->render('panier/index');
+
+    }
+
     function addProduit($id,$version){
 
         $this->loadModel('PanierSQL');

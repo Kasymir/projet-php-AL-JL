@@ -43,8 +43,8 @@
                 <li <?= ($this->checkForActiveControllerAndAction($filename, "musique/index")) ? 'class="active"' : ""; ?>>
                     <a href="<?php echo URL; ?>categories/index/musique">MUSIQUE</a>
                 </li>
-                <li <?= ($this->checkForActiveControllerAndAction($filename, "bd/index")) ? 'class="active"' : ""; ?>>
-                    <a href="<?php echo URL; ?>categories/index/bd">BDs</a>
+                <li <?= ($this->checkForActiveControllerAndAction($filename, "bds/index")) ? 'class="active"' : ""; ?>>
+                    <a href="<?php echo URL; ?>categories/index/bds">BDs</a>
                 </li>
                 <li <?= ($this->checkForActiveControllerAndAction($filename, "jeux/index")) ? 'class="active"' : ""; ?>>
                     <a href="<?php echo URL; ?>categories/index/jeux">JEUX</a>
@@ -59,7 +59,7 @@
                 <?php if (Session::get('user_name') == true) { ?>
                 <li><p class="navbar-text hidden-sm">Bienvenue <?php echo Session::get('user_name'); ?></p></li>
                 <?php } ?>
-                <li><a href="<?php echo URL; ?>"><i class="fa fa-shopping-cart"></i></a></li>
+                <li><a href="<?php echo URL; ?>panier/index"><i class="fa fa-shopping-cart"></i></a></li>
                 <?php if (Session::get('user_name') == true) { ?>
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="fa fa-user"></i><span class="caret"></span></a>
