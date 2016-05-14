@@ -10,6 +10,7 @@ class Produit extends Controller
     }
     
     function index($id){
+
         $this->loadModel('ProduitsSQL');
         $model_produit = new ProduitsSQL();
         $produit = $model_produit->findById($id);
@@ -19,10 +20,20 @@ class Produit extends Controller
         $image_main = $model_image->findWithCondition('id_produit = :pid and img_main = 1',array(':pid' => $id))->execute();
         $images = $model_image->findWithCondition('id_produit = :pid and img_main = 0',array(':pid' => $id))->execute();
 
+        $this->loadModel('CaracteristiqueSQL');
+        $model_caracteristique = new CaracteristiqueSQL();
+        $caracteristiques = $model_caracteristique->getCaracteristique($id);
+        
+        $this->loadModel('ExtraitSQL');
+        $model_extrait = new ExtraitSQL();
+        $extraits = $model_extrait->findWithCondition('id_produit = :idp' , array(':idp'=>$id))->execute();
+
         $this->view->produit = $produit;
         $this->view->image_main = $image_main[0];
         $this->view->images = $images;
-
+        $this->view->caracteristiques = $caracteristiques;
+        $this->view->extraits = $extraits;
+        
         $this->view->render('produit/index');
     }
 

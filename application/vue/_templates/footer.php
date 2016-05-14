@@ -1,15 +1,21 @@
-
 <div class="footer">
+    <div class="container">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                &copy; Copyright
+                </div>
+        </div>
+    </div>
 
 </div>
 
-<script src="<?=URL?>public/js/jquery.js"></script>
-<script src="<?=URL?>public/js/bootstrap.js"></script>
-<script src="<?=URL?>public/js/script.js"></script>
+<script src="<?= URL ?>public/js/jquery.js"></script>
+<script src="<?= URL ?>public/js/bootstrap.js"></script>
+<script src="<?= URL ?>public/js/script.js"></script>
 <script src="//cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
 
 <script>
-    $(document).ready(function(){
+    $(document).ready(function () {
         $('.tableATrier').dataTable({
             "oLanguage": {
                 "sSearch": "Rechercher",
