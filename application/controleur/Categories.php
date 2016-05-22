@@ -10,6 +10,7 @@ class Categories extends Controller
     }
     
     function index($categorie){
+        
         $this->loadModel('ProduitsSQL');
         $model_produit = new ProduitsSQL();
         $produits = $model_produit->findProductByCategorie($categorie);

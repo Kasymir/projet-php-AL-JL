@@ -31,7 +31,7 @@
                         <tr>
                             <td><?= $p->id; ?></td>
                             <td><?= $p->titre ?></td>
-                            <td><?= $p->description ?></td>
+                            <td><?= substr($p->description, 0 , 150) ?>...</td>
                             <td><?= $p->prix ?>€</td>
                             <td><?= $p->stock ?></td>
                             <td><?= $p->visible ?></td>

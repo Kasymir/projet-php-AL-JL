@@ -75,9 +75,9 @@
                     <?php foreach ($this->extrait as $e): ?>
                         <div class="col-md-9">
                             <label><?= $e->nom; ?></label>
-                            <video controls>
+                            <audio controls>
                                 <source src="<?= URL . $e->url ?>">
-                            </video>
+                            </audio>
                         </div>
                         <div class="col-md-3">
                             <a class="btn btn-danger" href="<?=URL?>produit/deleteExtrait/<?=$e->id?>">Supprimer</a>
@@ -112,6 +112,10 @@
                         <label>Titre : </label>
                         <input type="text" name="titre" class="form-control">
                         <input type="file" name="extrait" class="form-control"/>
+                        <select name="type" class="form-control">
+                            <option value="video">Video</option>
+                            <option value="audio">Audio</option>
+                        </select>
                     </div>
                 </div>
                 <div class="modal-footer">

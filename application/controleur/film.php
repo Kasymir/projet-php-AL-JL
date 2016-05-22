@@ -20,7 +20,7 @@ class Film extends Controller
      */
     function index()
     {
-        $this->loadModel('produitsSQL');
+        $this->loadModel('ProduitsSQL');
         $ModelFilm = new produitsSQL();
         $this->view->films = $ModelFilm->findAll()->execute();
 

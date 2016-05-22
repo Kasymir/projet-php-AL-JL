@@ -173,6 +173,7 @@ class Panier extends Controller
         $table_commande->somme = $total;
         $table_commande->date_commande = date('Y-m-d');
         $table_commande->valide = 0;
+        $table_commande->annule = 0;
         $table_commande->id_user = Session::get('user_id');
         $table_commande->save();
 

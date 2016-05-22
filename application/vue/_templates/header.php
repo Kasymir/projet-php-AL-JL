@@ -74,10 +74,7 @@
                                     <a href="<?php echo URL; ?>client/manage">Gestion clients</a>
                                 </li>
                                 <li>
-                                    <a href="<?php echo URL; ?>">Gestion commandes</a>
-                                </li>
-                                <li>
-                                    <a href="<?php echo URL; ?>">Gestion commantaires</a>
+                                    <a href="<?php echo URL; ?>commandes/commandeClient">Gestion commandes</a>
                                 </li>
                                 <li>
                                     <a href="<?php echo URL; ?>produit/manage">Gestion produits</a>

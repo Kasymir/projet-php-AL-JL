@@ -15,30 +15,43 @@ class Produit extends Controller
         $model_produit = new ProduitsSQL();
         $produit = $model_produit->findById($id);
 
-        $this->loadModel('ImageSQL');
-        $model_image = new ImageSQL();
-        $image_main = $model_image->findWithCondition('id_produit = :pid and img_main = 1',array(':pid' => $id))->execute();
-        $images = $model_image->findWithCondition('id_produit = :pid and img_main = 0',array(':pid' => $id))->execute();
+        if($produit != null && $produit->visible == 1){
+            $this->loadModel('ImageSQL');
+            $model_image = new ImageSQL();
+            $image_main = $model_image->findWithCondition('id_produit = :pid and img_main = 1',array(':pid' => $id))->execute();
+            $images = $model_image->findWithCondition('id_produit = :pid and img_main = 0',array(':pid' => $id))->execute();
 
-        $this->loadModel('CaracteristiqueSQL');
-        $model_caracteristique = new CaracteristiqueSQL();
-        $caracteristiques = $model_caracteristique->getCaracteristique($id);
-        
-        $this->loadModel('ExtraitSQL');
-        $model_extrait = new ExtraitSQL();
-        $extraits = $model_extrait->findWithCondition('id_produit = :idp' , array(':idp'=>$id))->execute();
+            $this->loadModel('CaracteristiqueSQL');
+            $model_caracteristique = new CaracteristiqueSQL();
+            $caracteristiques = $model_caracteristique->getCaracteristique($id);
 
-        $this->view->produit = $produit;
-        $this->view->image_main = $image_main[0];
-        $this->view->images = $images;
-        $this->view->caracteristiques = $caracteristiques;
-        $this->view->extraits = $extraits;
-        
-        $this->view->render('produit/index');
+            $this->loadModel('ExtraitSQL');
+            $model_extrait = new ExtraitSQL();
+            $extraits = $model_extrait->findWithCondition('id_produit = :idp' , array(':idp'=>$id))->execute();
+
+            $this->loadModel('AvisSQL');
+            $model_avis = new AvisSQL();
+            $avis = $model_avis->getCommentByProduct($id);
+
+            $this->view->produit = $produit;
+            $this->view->image_main = $image_main[0];
+            $this->view->images = $images;
+            $this->view->caracteristiques = $caracteristiques;
+            $this->view->extraits = $extraits;
+            $this->view->avis = $avis;
+
+            $this->view->render('produit/index');
+
+        }else{
+            header('location: ' . URL . 'error/index');
+        }
     }
 
     function manage()
     {
+        
+        Auth::isAdmin();
+        
         $this->loadModel('ProduitsSQL');
         $model_produits = new ProduitsSQL();
         $this->view->produits = $model_produits->findAll()->execute();
@@ -251,8 +264,10 @@ class Produit extends Controller
 
     function delete($id)
     {
+        
+        Auth::isAdmin();
+        
         // juste le passer en nom visible pour eviter de les supprimer dans les historiques de commandes
-
         $this->loadModel('ProduitsSQL');
         $model_produit = new ProduitsSQL();
         $p = $model_produit->findById($id);
@@ -341,7 +356,7 @@ class Produit extends Controller
             $resultat = move_uploaded_file($_FILES['extrait']['tmp_name'], $nom);
 
             $this->loadModel('Extrait');
-            $table_extrait = new Extrait($_POST['titre'],$nom,$id);
+            $table_extrait = new Extrait($_POST['titre'],$nom,$_POST['type'],$id);
             $table_extrait->save();
 
             Session::set('feedback_positive',EXTRAIT_ADD);
@@ -353,6 +368,8 @@ class Produit extends Controller
     }
 
     function deleteExtrait($id){
+        
+        Auth::isAdmin();
 
         $this->loadModel('ExtraitSQL');
         $model_extrait = new ExtraitSQL();
