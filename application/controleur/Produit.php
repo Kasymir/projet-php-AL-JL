@@ -27,7 +27,8 @@ class Produit extends Controller
 
             $this->loadModel('ExtraitSQL');
             $model_extrait = new ExtraitSQL();
-            $extraits = $model_extrait->findWithCondition('id_produit = :idp' , array(':idp'=>$id))->execute();
+            $extraits_video = $model_extrait->findWithCondition('id_produit = :idp and type="video"' , array(':idp'=>$id))->execute();
+            $extraits_music = $model_extrait->findWithCondition('id_produit = :idp and type="audio"' , array(':idp'=>$id))->execute();
 
             $this->loadModel('AvisSQL');
             $model_avis = new AvisSQL();
@@ -37,7 +38,8 @@ class Produit extends Controller
             $this->view->image_main = $image_main[0];
             $this->view->images = $images;
             $this->view->caracteristiques = $caracteristiques;
-            $this->view->extraits = $extraits;
+            $this->view->extraits_video = $extraits_video;
+            $this->view->extraits_music = $extraits_music;
             $this->view->avis = $avis;
 
             $this->view->render('produit/index');
@@ -331,13 +333,12 @@ class Produit extends Controller
         Auth::isAdmin();
 
         $nom = md5(uniqid(rand(), true));
-        $extensions_valides = array('ogg', 'mp3', 'mp4', 'mpeg4', 'wav' , 'flv' , 'wmv' , 'mov', 'wav');
+        $extensions_valides = array('ogg', 'mp3', 'mp4', 'mpeg4', 'wav' , 'flv' , 'wmv' , 'mov', 'wav' , "3gp");
         $extension_upload = strtolower(substr(strrchr($_FILES['extrait']['name'], '.'), 1));
 
         $this->loadModel('ProduitsSQL');
         $model_produit = new ProduitsSQL();
         $idCategorie = $model_produit->findById($id)->id_categorie;
-
 
         $this->loadModel('CategorieSQL');
         $model_categorie = new CategorieSQL();
@@ -355,12 +356,15 @@ class Produit extends Controller
             $nom = $path."/".$nom.".".$extension_upload;
             $resultat = move_uploaded_file($_FILES['extrait']['tmp_name'], $nom);
 
-            $this->loadModel('Extrait');
-            $table_extrait = new Extrait($_POST['titre'],$nom,$_POST['type'],$id);
-            $table_extrait->save();
+            if($resultat){
+                $this->loadModel('Extrait');
+                $table_extrait = new Extrait($_POST['titre'],$nom,$_POST['type'],$id);
+                $table_extrait->save();
 
-            Session::set('feedback_positive',EXTRAIT_ADD);
-            header('Location:'.URL.'produit/manage/'.$id);
+                Session::set('feedback_positive',EXTRAIT_ADD);
+                header('Location:'.URL.'produit/manage/'.$id);
+            }
+
         }else{
             Session::set('feedback_negative',EXTENSION_FALSE);
             header('Location:'.URL.'produit/manage/'.$id);
@@ -431,5 +435,22 @@ class Produit extends Controller
 
         echo $html;
 
+    }
+
+    function getProduitsAjax($regex) {
+        $this->loadModel('ProduitsSQL');
+        $model_produit = new ProduitsSQL();
+        $produits = $model_produit->findAll()->orderBy("titre asc")->limit(0, 5)->execute();
+
+        $html = "";
+
+        foreach ($produits as $p) {
+
+            if (substr($p->titre, 0, strlen($regex)) == $regex) {
+                $html .= "<li><a href='" . URL . "produit/index/" . $p->id . "'>" . ucfirst($p->titre) . "</a></li>";
+            }
+        }
+
+        echo $html;
     }
 }

@@ -1,6 +1,46 @@
 $(document).ready(function () {
 
 
+    $(function () {
+        $('#panier[data-toggle="popover"]').popover(
+            {
+                html: true,
+                content:function(){
+                    return $("#content_panier").html();
+                }
+            }
+        )
+    });
+
+    function getUrl() {
+        return window.location.protocol + '//' + window.location.host + '/' + window.location.pathname.split('/')[1] + '/';
+    }
+
+    // BARRE DE RECHERCHE
+    $(document).on('keyup', '#recherche', function (input) {
+
+        $('#suggest').show();
+
+        if ($(this).val().length > 0 && !$(this).val().match(' ')) {
+            $.ajax({
+                url: getUrl() + "produit/getProduitsAjax/" + $(this).val(),
+                get: 'get',
+                data: '',
+                success: function (e) {
+                    $('#suggest').empty();
+                    $('#suggest').html(e);
+                },
+                error: function (e) {
+                    console.log('error ' + e);
+                }
+            });
+        } else {
+            $('#suggest').empty();
+        }
+    });
+    $('#suggest').hide();
+
+
     // Fonction a l'inscription permettant de bloquer et preremplir l'adresse de livraison si elles sont identiques
     $(document).on("click", "#adresse_identique", function (e) {
 
@@ -37,7 +77,7 @@ $(document).ready(function () {
                 if ($(this).val().length < 2)
                     $("#caracteristique-categorie").append('<input type ="text" name="caracteristique[]" placeholder="caracteristique associé" class="form-control carac-categorie" id="carac' + $id + '" >');
             } else {
-                if($id>1)
+                if ($id > 1)
                     $(this).remove();
             }
         }
@@ -46,7 +86,7 @@ $(document).ready(function () {
     // Permet d'ajouter les champs de caracteristique selon la categorie du produit
     $(document).on('change', '#categorieProduct', function (e) {
         $.ajax({
-            url: "http://localhost/projet-php-AL-JL/produit/getCaracteristique/" + $(this).val(),
+            url: getUrl() + "produit/getCaracteristique/" + $(this).val(),
             type: "get",
             data: "html",
             success: function (e) {
@@ -60,9 +100,9 @@ $(document).ready(function () {
     });
 
     // Permet d'ajouter ou de supprimer les type_caracteristique
-    $(document).on('change','.caracteristiqueAjax', function(e){
+    $(document).on('change', '.caracteristiqueAjax', function (e) {
 
-        if($(this).val() == 0){
+        if ($(this).val() == 0) {
             // on ajoute une nouvelle ligne avec les parametres données dans l'attribut name sous la forme =>
             // caracteristique-categorie
 
@@ -71,20 +111,20 @@ $(document).ready(function () {
             $idCaracteristique = $tableauID[0];
             $idCategorie = $tableauID[1];
             $.ajax({
-                url: "http://localhost/projet-php-AL-JL/caracteristiques/addRelation/" + $idCaracteristique + "/" + $idCategorie,
+                url: getUrl() + "caracteristiques/addRelation/" + $idCaracteristique + "/" + $idCategorie,
                 type: "get",
                 data: "html",
-                success:function (a) {
-                    $checkbox.attr('value',a);
+                success: function (a) {
+                    $checkbox.attr('value', a);
                 }
             })
-        }else{
+        } else {
             //supprime la ligne avec l'id passer dans la value
             $idTypeCaracteristique = $(this).val();
             $.ajax({
-                url: "http://localhost/projet-php-AL-JL/caracteristiques/deleteRelation/" + $idTypeCaracteristique,
-                success:function (a){
-                    $checkbox.attr('value',a);
+                url: getUrl() + "caracteristiques/deleteRelation/" + $idTypeCaracteristique,
+                success: function (a) {
+                    $checkbox.attr('value', a);
                 }
             });
         }
@@ -96,14 +136,15 @@ $(document).ready(function () {
 // Starrr plugin (https://github.com/dobtco/starrr)
 var __slice = [].slice;
 
-(function($, window) {
+(function ($, window) {
     var Starrr;
 
-    Starrr = (function() {
+    Starrr = (function () {
         Starrr.prototype.defaults = {
             rating: void 0,
             numStars: 5,
-            change: function(e, value) {}
+            change: function (e, value) {
+            }
         };
 
         function Starrr($el, options) {
@@ -121,19 +162,19 @@ var __slice = [].slice;
             }
             this.createStars();
             this.syncRating();
-            this.$el.on('mouseover.starrr', 'span', function(e) {
+            this.$el.on('mouseover.starrr', 'span', function (e) {
                 return _this.syncRating(_this.$el.find('span').index(e.currentTarget) + 1);
             });
-            this.$el.on('mouseout.starrr', function() {
+            this.$el.on('mouseout.starrr', function () {
                 return _this.syncRating();
             });
-            this.$el.on('click.starrr', 'span', function(e) {
+            this.$el.on('click.starrr', 'span', function (e) {
                 return _this.setRating(_this.$el.find('span').index(e.currentTarget) + 1);
             });
             this.$el.on('starrr:change', this.options.change);
         }
 
-        Starrr.prototype.createStars = function() {
+        Starrr.prototype.createStars = function () {
             var _i, _ref, _results;
 
             _results = [];
@@ -143,7 +184,7 @@ var __slice = [].slice;
             return _results;
         };
 
-        Starrr.prototype.setRating = function(rating) {
+        Starrr.prototype.setRating = function (rating) {
             if (this.options.rating === rating) {
                 rating = void 0;
             }
@@ -152,7 +193,7 @@ var __slice = [].slice;
             return this.$el.trigger('starrr:change', rating);
         };
 
-        Starrr.prototype.syncRating = function(rating) {
+        Starrr.prototype.syncRating = function (rating) {
             var i, _i, _j, _ref;
 
             rating || (rating = this.options.rating);
@@ -175,11 +216,11 @@ var __slice = [].slice;
 
     })();
     return $.fn.extend({
-        starrr: function() {
+        starrr: function () {
             var args, option;
 
             option = arguments[0], args = 2 <= arguments.length ? __slice.call(arguments, 1) : [];
-            return this.each(function() {
+            return this.each(function () {
                 var data;
 
                 data = $(this).data('star-rating');
@@ -194,14 +235,16 @@ var __slice = [].slice;
     });
 })(window.jQuery, window);
 
-$(function() {
+
+
+// ETOILE NOTATION
+$(function () {
     return $(".starrr").starrr();
 });
 
-$( document ).ready(function() {
-
-    $('#stars').on('starrr:change', function(e, value){
-        $('input#star').attr('value',value);
+$(document).ready(function () {
+    // GESTION ETOILE NOTATION
+    $('#stars').on('starrr:change', function (e, value) {
+        $('input#star').attr('value', value);
     });
-    
 });

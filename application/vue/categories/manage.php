@@ -47,6 +47,10 @@
                                                placeholder="caracteristique associé"
                                                class="form-control carac-categorie" id="carac0">
                                     </div>
+                                    <div class="form-group">
+                                        <label>Frais de transport</label>
+                                        <input type="number" class="form-control" placeholder="frais de transport" min="0" max="100" step="1" name="fdp">
+                                    </div>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>

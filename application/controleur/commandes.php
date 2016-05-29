@@ -35,18 +35,9 @@ class Commandes extends Controller
 
         $this->loadModel('CommandeSQL');
         $model_commande = new CommandeSQL();
-        $this->view->commandes = $model_commande->findAll()->execute();
-
-        $produitByCommande = array();
-        $userByCommande = array();
-
-
-        $this->loadModel('UserSQL');
-        $model_user = new UserSQL();
-        foreach ($this->view->commandes as $c) {
-            $userByCommande[$c->id] = $model_user->findById($c->id_user);
-        }
-        $this->view->usersByCommande = $userByCommande;
+        $this->view->commandes_en_cours = $model_commande->commandeEnCours();
+        
+        $this->view->commandes_ok = $model_commande->commandeOk();
 
         $this->view->render('commande/commande');
 

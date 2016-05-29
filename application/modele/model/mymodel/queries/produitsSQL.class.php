@@ -23,6 +23,38 @@ FROM produits
         $this->dbAdapter->execute(array(':nom' => $categorie));
         return $this->dbAdapter->fetchAll(ucfirst($this->tableName . 'SQL'));
     }
+
+
+    function meilleuresVentes($c){
+
+        $sql="
+        SELECT * FROM produits 
+        JOIN categorie c on c.id = produits.id_categorie
+        JOIN `image` ON `produits`.`id`=`image`.`id_produit`
+        WHERE c.nom like :c and img_main = 1
+        ORDER BY nb_ventes
+        LIMIT 0,5
+        ";
+        $this->dbAdapter->prepare($sql);
+        $this->dbAdapter->execute(array(':c' => $c));
+        return $this->dbAdapter->fetchAll(ucfirst($this->tableName . 'SQL'));
+
+    }
+
+    function findNewProduct($c){
+        $sql="
+        SELECT * FROM produits 
+        JOIN categorie c on c.id = produits.id_categorie
+        JOIN `image` ON `produits`.`id`=`image`.`id_produit`
+        WHERE c.nom like :c and img_main = 1
+        ORDER BY nouveaute
+        LIMIT 0,5
+        ";
+        $this->dbAdapter->prepare($sql);
+        $this->dbAdapter->execute(array(':c' => $c));
+        return $this->dbAdapter->fetchAll(ucfirst($this->tableName . 'SQL'));
+    }
+
 }
 
 ?>

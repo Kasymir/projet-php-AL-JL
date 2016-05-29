@@ -8,14 +8,14 @@
     <meta name="author" content="">
 
     <title>Tur-fu Shop</title>
-    
-    <link href="<?=URL?>public/css/bootstrap.css" rel="stylesheet">
-    <link href="<?=URL?>public/css/font-awesome.css" rel="stylesheet">
 
-    <link href="<?=URL?>public/css/style.css" rel="stylesheet">
+    <link href="<?= URL ?>public/css/bootstrap.css" rel="stylesheet">
+    <link href="<?= URL ?>public/css/font-awesome.css" rel="stylesheet">
+
+    <link href="<?= URL ?>public/css/style.css" rel="stylesheet">
 
     <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.4/css/jquery.dataTables.css">
-    
+
 </head>
 <body>
 <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -50,19 +50,77 @@
                     <a href="<?php echo URL; ?>categories/index/jeux">JEUX</a>
                 </li>
                 <li>
-                    <form action="" class="navbar-form navbar-right">
-                        <input class="form-control" placeholder="Rechercher">
-                    </form>
+                    <input class="form-control" placeholder="Rechercher" id="recherche" autocomplete="off">
+                    <ul id="suggest"></ul>
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <?php if (Session::get('user_name') == true) { ?>
-                <li><p class="navbar-text hidden-sm">Bienvenue <?php echo Session::get('user_name'); ?></p></li>
+                    <li><p class="navbar-text hidden-sm">Bienvenue <?php echo Session::get('user_name'); ?></p></li>
                 <?php } ?>
-                <li><a href="<?php echo URL; ?>panier/index"><i class="fa fa-shopping-cart"></i></a></li>
+                <li><a id="panier" tabindex="0" data-container="body" role="button" data-toggle="popover"
+                       data-placement="bottom" data-trigger="focus" title="Mon panier">
+                        <i class="fa fa-shopping-cart"></i></a></li>
+
+                <div id="content_panier" class="hidden">
+                    <?php
+                    if (sizeof($this->pdts) == 0):
+                        ?>
+                        <h3>Vous n'avez rien ajouté dans votre panier</h3>
+                        <?php
+                    else :
+                        ?>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <table class="table">
+                                    <thead>
+                                    <th>Titre</th>
+                                    <th>Version</th>
+                                    <th>Prix</th>
+                                    </thead>
+                                    <tfoot>
+                                    <tr>
+                                        <td colspan="2" class="text-right">Somme :</td>
+                                        <td><?= $this->somme ?>€</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" class="text-right">Frais de transport :</td>
+                                        <td><?= ($this->fdp == "") ? "0" : $this->fdp ?>€</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" class="text-right">Total :</td>
+                                        <td><?= $this->total ?>€</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3"><a href="<?= URL ?>panier/index"
+                                                           class="btn btn-success pull-right">VOIR MON PANIER</a></td>
+                                    </tr>
+                                    </tfoot>
+                                    <tbody>
+                                    <?php
+                                    foreach ($this->pdts as $p):
+                                        ?>
+                                        <tr>
+                                            <td><?= $p->titre ?></td>
+                                            <td><?= ($p->version == 1) ? 'Version physique' : 'version numérique' ?></td>
+                                            <td><?= $p->prix ?>€</td>
+                                        </tr>
+                                        <?php
+                                    endforeach;
+                                    ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <?php
+                    endif;
+                    ?>
+                </div>
+
                 <?php if (Session::get('user_name') == true) { ?>
                     <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="fa fa-user"></i><span class="caret"></span></a>
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="fa fa-user"></i><span
+                                class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
                             <li>
                                 <a href="<?php echo URL; ?>profil/index">Mon profil</a>
@@ -97,7 +155,8 @@
                     <li <?= ($this->checkForActiveControllerAndAction($filename, "login/index")) ? 'class="active"' : ""; ?>>
                         <a href="<?php echo URL . 'login'; ?>"><i class="fa fa-sign-in"></i> Connexion</a></li>
                     <li <?= ($this->checkForActiveControllerAndAction($filename, "login/inscription")) ? 'class="active"' : ""; ?>>
-                        <a href="<?php echo URL . 'login/register'; ?>"><i class="fa fa-user-plus"></i> Inscription</a></li>
+                        <a href="<?php echo URL . 'login/register'; ?>"><i class="fa fa-user-plus"></i> Inscription</a>
+                    </li>
                 <?php } ?>
             </ul>
         </div>

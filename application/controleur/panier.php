@@ -13,11 +13,9 @@ class Panier extends Controller
 
         Auth::isLog();
 
-        $this->loadModel('PanierSQL');
         $model_panier = new PanierSQL();
         $idPanier = $model_panier->findWithCondition('id_user = :uid',array(':uid'=>Session::get('user_id')))->execute();
 
-        $this->loadModel('Panier_produitSQL');
         $model_panier_produit = new Panier_produitSQL();
         $this->view->produits = $model_panier_produit->getProductByIdPanier($idPanier[0]->id);
         
@@ -25,8 +23,7 @@ class Panier extends Controller
         foreach($this->view->produits as $p){
             $this->view->somme += $p->prix;
         }
-        
-        $this->loadModel('TransportSQL');
+
         $model_transport = new TransportSQL();
         $this->view->fdp = $model_transport->fdp($idPanier[0]->id)[0]->total_fdp;
 
@@ -40,11 +37,11 @@ class Panier extends Controller
 
         Auth::isLog();
 
-        $this->loadModel('PanierSQL');
+        $this->loadModel('Panier_produit');
+
         $idPanier = new PanierSQL();
         $model_panier = $idPanier->findWithCondition('id_user = :uid',array(':uid'=>Session::get('user_id')))->execute();
 
-        $this->loadModel('Panier_produit');
         $panier_produit = new Panier_produit();
         $panier_produit->version = $version;
         $panier_produit->id_panier = $model_panier[0]->id;
@@ -104,7 +101,6 @@ class Panier extends Controller
             $table_produit->save();
         }
 
-        $this->loadModel('Panier_produit');
         $table_panier_produit = new Panier_produit();
         $table_panier_produit->setId($ppid);
         $table_panier_produit->delete();
@@ -120,11 +116,9 @@ class Panier extends Controller
         $model_adresse = new User_adresseSQL();
         $adresses = $model_adresse->findWithCondition('id_user = :uid' , array(':uid'=>Session::get('user_id')))->execute();
 
-        $this->loadModel('PanierSQL');
         $model_panier = new PanierSQL();
         $idPanier = $model_panier->findWithCondition('id_user = :uid',array(':uid'=>Session::get('user_id')))->execute();
 
-        $this->loadModel('Panier_produitSQL');
         $model_panier_produit = new Panier_produitSQL();
         $this->view->produits = $model_panier_produit->getProductByIdPanier($idPanier[0]->id);
 
@@ -133,7 +127,6 @@ class Panier extends Controller
             $this->view->somme += $p->prix;
         }
 
-        $this->loadModel('TransportSQL');
         $model_transport = new TransportSQL();
         $this->view->fdp = $model_transport->fdp($idPanier[0]->id)[0]->total_fdp;
 
@@ -147,11 +140,9 @@ class Panier extends Controller
 
     function validerCommande(){
 
-        $this->loadModel('PanierSQL');
         $model_panier = new PanierSQL();
         $idPanier = $model_panier->findWithCondition('id_user = :uid',array(':uid'=>Session::get('user_id')))->execute();
 
-        $this->loadModel('Panier_produitSQL');
         $model_panier_produit = new Panier_produitSQL();
         $produits = $model_panier_produit->getProductByIdPanier($idPanier[0]->id);
 
@@ -160,7 +151,6 @@ class Panier extends Controller
             $somme += $p->prix;
         }
 
-        $this->loadModel('TransportSQL');
         $model_transport = new TransportSQL();
         $fdp = $model_transport->fdp($idPanier[0]->id)[0]->total_fdp;
 

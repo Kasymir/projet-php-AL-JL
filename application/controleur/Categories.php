@@ -14,8 +14,13 @@ class Categories extends Controller
         $this->loadModel('ProduitsSQL');
         $model_produit = new ProduitsSQL();
         $produits = $model_produit->findProductByCategorie($categorie);
+        
+        $meilleuresVentes = $model_produit->meilleuresVentes($categorie);
+        $nouveaux = $model_produit->findNewProduct($categorie);
 
         $this->view->produits = $produits;
+        $this->view->meilleuresVentes = $meilleuresVentes;
+        $this->view->nouveaux = $nouveaux;
 
         $this->view->render('categories/index');
         
@@ -54,21 +59,28 @@ class Categories extends Controller
             $this->loadModel('Caracteristique');
             $this->loadModel('CaracteristiqueSQL');
             $this->loadModel('Type_caracteristique');
-            
+            $this->loadModel('Transport');
+
             foreach ($_POST['caracteristique'] as $c){
 
-                if(is_numeric($c)){
-                    $tc = new Type_caracteristique($model_categorie->maxId()->execute()[0]->maxid,$c);
-                }else{
-                    $c_tmp = new Caracteristique($c);
-                    $c_tmp->save();
-                    $model_caract = new CaracteristiqueSQL();
-                    $tc = new Type_caracteristique($model_categorie->maxId()->execute()[0]->maxid,$model_caract->maxId()->execute()[0]->maxid);
+                if($c != ""){
+                    if(is_numeric($c)){
+                        $tc = new Type_caracteristique($model_categorie->maxId()->execute()[0]->maxid,$c);
+                    }else{
+                        $c_tmp = new Caracteristique($c);
+                        $c_tmp->save();
+                        $model_caract = new CaracteristiqueSQL();
+                        $tc = new Type_caracteristique($model_categorie->maxId()->execute()[0]->maxid,$model_caract->maxId()->execute()[0]->maxid);
+                    }
+
+                    $tc->save();
                 }
-
-                $tc->save();
-
             }
+
+            $table_transport = new Transport();
+            $table_transport->prix = $_POST['fdp'];
+            $table_transport->id_Categorie = $model_categorie->maxId()->execute()[0]->maxid;
+            $table_transport->save();
 
             Session::set('feedback_positive',CATEGORIE_ADD);
             header('Location: ' . URL . 'categories/manage');
