@@ -78,7 +78,8 @@ class Panier extends Controller
     
     function delete($ppid){
 
-        $this->loadModel('Panier_produitSQL');
+        $this->loadModel('Panier_produit');
+
         $model_panier_produit = new Panier_produitSQL();
         $panier_produit = $model_panier_produit->findById($ppid);
 

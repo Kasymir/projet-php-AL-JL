@@ -58,6 +58,7 @@
                 <?php if (Session::get('user_name') == true) { ?>
                     <li><p class="navbar-text hidden-sm">Bienvenue <?php echo Session::get('user_name'); ?></p></li>
                 <?php } ?>
+                <?php if (Session::get('user_name') == true) : ?>
                 <li><a id="panier" tabindex="0" data-container="body" role="button" data-toggle="popover"
                        data-placement="bottom" data-trigger="focus" title="Mon panier">
                         <i class="fa fa-shopping-cart"></i></a></li>
@@ -116,6 +117,9 @@
                     endif;
                     ?>
                 </div>
+                <?php
+                endif;
+                ?>
 
                 <?php if (Session::get('user_name') == true) { ?>
                     <li class="dropdown">

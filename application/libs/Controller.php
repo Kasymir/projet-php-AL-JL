@@ -44,26 +44,28 @@ class Controller
         $this->view = new View();
 
         // PANIER HEADER
-        
-        $this->loadModel('PanierSQL');
-        $model_panier = new PanierSQL();
-        $idPanier = $model_panier->findWithCondition('id_user = :uid',array(':uid'=>Session::get('user_id')))->execute();
 
-        $this->loadModel('Panier_produitSQL');
-        $model_panier_produit = new Panier_produitSQL();
-        $this->view->pdts = $model_panier_produit->getProductByIdPanier($idPanier[0]->id);
+        if(Session::get('user_id')){
+            $this->loadModel('PanierSQL');
+            $model_panier = new PanierSQL();
+            $idPanier = $model_panier->findWithCondition('id_user = :uid',array(':uid'=>Session::get('user_id')))->execute();
 
-        $this->view->somme = 0;
-        foreach($this->view->pdts as $p){
-            $this->view->somme += $p->prix;
+            $this->loadModel('Panier_produitSQL');
+            $model_panier_produit = new Panier_produitSQL();
+            $this->view->pdts = $model_panier_produit->getProductByIdPanier($idPanier[0]->id);
+
+            $this->view->somme = 0;
+            foreach($this->view->pdts as $p){
+                $this->view->somme += $p->prix;
+            }
+
+            $this->loadModel('TransportSQL');
+            $model_transport = new TransportSQL();
+            $this->view->fdp = $model_transport->fdp($idPanier[0]->id)[0]->total_fdp;
+
+            $this->view->total = $this->view->somme + $this->view->fdp;
+
         }
-
-        $this->loadModel('TransportSQL');
-        $model_transport = new TransportSQL();
-        $this->view->fdp = $model_transport->fdp($idPanier[0]->id)[0]->total_fdp;
-
-        $this->view->total = $this->view->somme + $this->view->fdp;
-
         // END PANIER HEADER
     }
 

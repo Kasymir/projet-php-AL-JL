@@ -74,7 +74,7 @@
 
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h1>Mes commandes passéez annulés</h1>
+                <h1>Mes commandes passées annulés</h1>
             </div>
             <div class="panel-body">
                 <table class="table">
